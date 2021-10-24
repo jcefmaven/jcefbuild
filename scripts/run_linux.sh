@@ -21,7 +21,7 @@ cd /jcef
 mkdir jcef_build && cd jcef_build
 
 # Linux: Generate 32/64-bit Unix Makefiles.
-cmake -G "Ninja" -DCMAKE_BUILD_TYPE=Release ..
+cmake -G "Ninja" -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
 # Build native part using ninja.
 ninja -j4
 

@@ -12,6 +12,9 @@ ENV BUILD_CEF 0
 #(Not required for mp3/mp4 anymore!)
 ENV GYP_DEFINES ""
 
+#Type to build: Debug or Release
+ENV BUILD_TYPE Release
+
 WORKDIR /builder
 COPY scripts/run_linux.sh .
 RUN chmod +x run_linux.sh
@@ -19,6 +22,6 @@ RUN ./run_linux.sh
 
 #Export built files
 FROM scratch AS export-stage
-COPY --from=stage /jcef/jcef_build .
+COPY --from=stage /jcef/binary_distrib .
 
 
