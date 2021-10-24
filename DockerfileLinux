@@ -1,0 +1,24 @@
+FROM friwidev/jcefdocker:linux-latest AS stage
+
+#Do you want to manually build cef to customize the build?
+#0: Use CEF from prebuilt Spotify repository (supported by CEF-Downloader only for 386 and amd64)
+#1: Compile CEF from source
+#This value will be ignored when no download is available on this architecture!
+ENV BUILD_CEF 0
+
+#If you want to build with proprietary codecs, add the following to this variable:
+#    proprietary_codecs=1 ffmpeg_branding=Chrome
+#Warning: Be aware of the legal implications by using proprietary codecs!
+#(Not required for mp3/mp4 anymore!)
+ENV GYP_DEFINES
+
+WORKDIR /builder
+COPY scripts/run_linux.sh .
+RUN chmod +x run_linux.sh
+RUN ./run_linux.sh
+
+#Export built files
+FROM scratch AS export-stage
+COPY --from=stage /jcef/jcef_build .
+
+
