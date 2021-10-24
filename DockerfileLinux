@@ -22,6 +22,6 @@ RUN ./run_linux.sh
 
 #Export built files
 FROM scratch AS export-stage
-COPY --from=stage /jcef/binary_distrib .
+COPY --from=stage /jcef/binary_distrib.tar.gz .
 
 

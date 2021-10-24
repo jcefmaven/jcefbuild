@@ -42,4 +42,6 @@ else
     ./make_distrib.sh linux32
 fi
 
-
+#Pack binary_distrib
+cd ..
+tar -czvf binary_distrib.tar.gz binary_distrib
