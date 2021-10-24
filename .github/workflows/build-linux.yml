@@ -38,4 +38,4 @@ jobs:
         with:
           name: linux-amd64.zip
           path: |
-            binary_distrib.tar.gz
+            out/binary_distrib.tar.gz

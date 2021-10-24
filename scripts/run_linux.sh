@@ -43,5 +43,9 @@ else
 fi
 
 #Pack binary_distrib
-cd ..
-tar -czvf binary_distrib.tar.gz binary_distrib
+if [ ${MACHINE_TYPE} == 'x86_64' ]; then
+    cd ../binary_distrib/linux64
+else
+    cd ../binarey_distrib/linux32
+fi
+tar -czvf ../../binary_distrib.tar.gz .
