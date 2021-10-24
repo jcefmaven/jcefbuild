@@ -28,3 +28,10 @@ jobs:
         run: |
           chmod +x compile_linux.sh
           ./compile_linux.sh amd64
+      -
+        name: Export artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-amd64.zip
+          path: |
+            binary_distrib
