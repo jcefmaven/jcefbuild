@@ -29,10 +29,6 @@ jobs:
           chmod +x compile_linux.sh
           ./compile_linux.sh amd64
       -
-        name: Visualize output
-        run: |
-          ls -a
-      -
         name: Export artifacts
         uses: actions/upload-artifact@v2
         with:

@@ -48,4 +48,4 @@ if [ ${MACHINE_TYPE} == 'x86_64' ]; then
 else
     cd ../binarey_distrib/linux32
 fi
-tar -czvf ../../binary_distrib.tar.gz .
+tar -czvf ../../binary_distrib.tar.gz *
