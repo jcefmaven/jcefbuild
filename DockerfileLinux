@@ -10,7 +10,7 @@ ENV BUILD_CEF 0
 #    proprietary_codecs=1 ffmpeg_branding=Chrome
 #Warning: Be aware of the legal implications by using proprietary codecs!
 #(Not required for mp3/mp4 anymore!)
-ENV GYP_DEFINES
+ENV GYP_DEFINES ""
 
 WORKDIR /builder
 COPY scripts/run_linux.sh .
