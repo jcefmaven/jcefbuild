@@ -7,6 +7,10 @@ ENV BUILD_TYPE Release
 ARG TARGETARCH
 
 WORKDIR /builder
+#Copy existing sources, if any
+COPY jcef /jcef
+
+#Copy and launch run script
 COPY scripts/run_linux.sh .
 RUN chmod +x run_linux.sh
 RUN ./run_linux.sh
