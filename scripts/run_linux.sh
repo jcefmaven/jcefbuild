@@ -6,6 +6,7 @@ echo "Building for architecture $TARGETARCH"
 
 if [ ! -f "/jcef/README.md" ]; then
     echo "Did not find existing files to build - cloning..."
+    rm -rf /jcef
     git clone https://bitbucket.org/chromiumembedded/java-cef.git /jcef
 else
     echo "Found existing files to build"
