@@ -18,12 +18,6 @@ jobs:
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       -
-        name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
         name: Build
         run: |
           chmod +x compile_linux.sh
@@ -32,6 +26,30 @@ jobs:
         name: Export artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: linux-amd64.zip
-          path: |
-            out/binary_distrib.tar.gz
+          name: linux-amd64.tar.gz
+          path: out/binary_distrib.tar.gz
+
+
+  i386:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@master
+        with:
+          platforms: all
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Build
+        run: |
+          chmod +x compile_linux.sh
+          ./compile_linux.sh 386
+      -
+        name: Export artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-i386.tar.gz
+          path: out/binary_distrib.tar.gz
+
