@@ -1,12 +1,12 @@
 @echo off
 
-if "%TARGETARCH%"=="386" (echo "Building 32-bit version") ^
-else (echo "Building 64-bit version")
+if "%TARGETARCH%"=="386" (echo Building 32-bit version) ^
+else (echo Building 64-bit version)
 
 #Check residency of workdir
 cd C:
-if exists jcef/README.md (echo "Found existing files to build") ^
-else (echo "Did not find files to build - cloning..." && rmdir /S /Q jcef && git clone https://bitbucket.org/chromiumembedded/java-cef jcef)
+if exists jcef\README.md (echo Found existing files to build) ^
+else (echo Did not find files to build - cloning... && rmdir /S /Q jcef && git clone https://bitbucket.org/chromiumembedded/java-cef jcef)
 cd jcef
 
 #Prepare build dir
