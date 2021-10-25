@@ -11,5 +11,5 @@ if [ $# -eq 0 ]
 fi
 
 #Execute buildx with linux dockerfile and output to current directory
-docker buildx build --platform=linux/$1 --file DockerfileLinux --output out .
+docker buildx build --platform=linux/$1 --build-arg TARGETARCH=$1 --file DockerfileLinux --output out .
 
