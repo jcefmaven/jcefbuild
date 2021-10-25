@@ -2,8 +2,7 @@
 set -e
 
 # Determine architecture
-MACHINE_TYPE=`uname -m`
-echo "Building for architecture $MACHINE_TYPE"
+echo "Building for architecture $TARGETARCH"
 
 if [ ! -f "/jcef/README.md" ]; then
     echo "Did not find existing files to build - cloning..."
@@ -28,7 +27,7 @@ ninja -j4
 #Compile JCEF java classes
 cd ../tools
 chmod +x compile.sh
-if [ ${MACHINE_TYPE} == 'x86_64' ]; then
+if [ ${TARGETARCH} == 'amd64' ]; then
     ./compile.sh linux64
 else
     ./compile.sh linux32
@@ -36,7 +35,7 @@ fi
 
 #Generate distribution
 chmod +x make_distrib.sh
-if [ ${MACHINE_TYPE} == 'x86_64' ]; then
+if [ ${TARGETARCH} == 'amd64' ]; then
     ./make_distrib.sh linux64
 else
     ./make_distrib.sh linux32
