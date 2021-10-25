@@ -14,7 +14,7 @@ jobs:
         name: Build
         shell: cmd
         run: |
-          .\compile_windows.bat amd64 Release
+          cmd.exe /k compile_windows.bat amd64 Release
       -
         name: Export artifacts
         uses: actions/upload-artifact@v2
@@ -31,7 +31,7 @@ jobs:
         name: Build
         shell: cmd
         run: |
-          .\compile_windows.bat 386 Release
+          cmd.exe /k compile_windows.bat 386 Release
       -
         name: Export artifacts
         uses: actions/upload-artifact@v2
