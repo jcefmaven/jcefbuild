@@ -12,8 +12,9 @@ jobs:
       - uses: actions/checkout@v1
       -
         name: Build
+        shell: cmd
         run: |
-          compile_windows.bat amd64 Release
+          .\compile_windows.bat amd64 Release
       -
         name: Export artifacts
         uses: actions/upload-artifact@v2
@@ -28,8 +29,9 @@ jobs:
       - uses: actions/checkout@v1
       -
         name: Build
+        shell: cmd
         run: |
-          compile_windows.bat 386 Release
+          .\compile_windows.bat 386 Release
       -
         name: Export artifacts
         uses: actions/upload-artifact@v2
