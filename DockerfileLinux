@@ -3,6 +3,9 @@ FROM friwidev/jcefdocker:linux-latest AS stage
 #Specify a type to build: Debug or Release
 ENV BUILD_TYPE Release
 
+#Declare architecture argument
+ARG TARGETARCH
+
 WORKDIR /builder
 COPY scripts/run_linux.sh .
 RUN chmod +x run_linux.sh
