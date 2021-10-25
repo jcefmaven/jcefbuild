@@ -3,7 +3,7 @@
 if ("%2"=="") ( ^ 
     echo "Usage: compile_windows.bat <architecture> <buildType>" && ^ 
     echo "" && ^ 
-    echo "architecture: the target architecture to build for. Architectures are the docker architectures (e.g. 386 or amd64)." && ^ 
+    echo "architecture: the target architecture to build for. Architectures are either 386 or amd64." && ^ 
     echo "buildType: either Release or Debug" && ^ 
     exit 1 ^ 
 )

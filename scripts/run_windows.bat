@@ -1,4 +1,4 @@
-@echo off
+@echo on
 
 if "%TARGETARCH%"=="386" (echo "Building 32-bit version") ^
 else (echo "Building 64-bit version")
@@ -6,7 +6,9 @@ else (echo "Building 64-bit version")
 #Check residency of workdir
 cd C:
 if exist "jcef\README.md" (echo "Found existing files to build") ^
-else (echo "Did not find files to build - cloning..." && rmdir /S /Q jcef && git clone https://bitbucket.org/chromiumembedded/java-cef jcef)
+else (echo "Did not find files to build - cloning..." && GOTO :CLONE)
+
+:BUILD
 cd jcef
 
 #Prepare build dir
@@ -31,3 +33,10 @@ if "%TARGETARCH%"=="386" (make_distrib.bat win32) else (make_distrib.bat win64)
 if "%TARGETARCH%"=="386" (cd ../binary_distrib/win32) else (cd ../binary_distrib/win64)
 del /F C:\out\binary_distrib.tar.gz
 tar -czvf C:\out\binary_distrib.tar.gz *
+
+GOTO :EOF
+
+:CLONE
+if exist jcef rmdir /S /Q jcef
+git clone https://bitbucket.org/chromiumembedded/java-cef jcef
+GOTO :BUILD
