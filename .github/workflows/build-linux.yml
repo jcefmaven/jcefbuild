@@ -21,7 +21,7 @@ jobs:
         name: Build
         run: |
           chmod +x compile_linux.sh
-          ./compile_linux.sh amd64
+          ./compile_linux.sh amd64 Release
       -
         name: Export artifacts
         uses: actions/upload-artifact@v2
@@ -45,7 +45,7 @@ jobs:
         name: Build
         run: |
           chmod +x compile_linux.sh
-          ./compile_linux.sh 386
+          ./compile_linux.sh 386 Release
       -
         name: Export artifacts
         uses: actions/upload-artifact@v2

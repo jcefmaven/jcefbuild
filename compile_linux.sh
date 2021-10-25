@@ -1,15 +1,14 @@
 #!/bin/bash
 
-if [ $# -eq 0 ]
+if [ ! $# -eq 2 ]
   then
-    echo "Usage: ./compile_linux.sh <architecture> [GYP_DEFINES]"
+    echo "Usage: ./compile_linux.sh <architecture> <buildType>"
     echo ""
     echo "architecture: the target architecture to build for. Architectures are the docker architectures (e.g. 386 or amd64)."
-    echo "GYP_DEFINES: When defined, performs a manual CEF build. Can be used to enable proprietary codec support. Wrap value with quotation marks."
-    echo "    To enable proprietary codecs use: proprietary_codecs=1 ffmpeg_branding=Chrome"
+    echo "buildType: either Release or Debug"
     exit 1
 fi
 
 #Execute buildx with linux dockerfile and output to current directory
-docker buildx build --platform=linux/$1 --build-arg TARGETARCH=$1 --file DockerfileLinux --output out .
+docker buildx build --platform=linux/$1 --build-arg TARGETARCH=$1 --build-arg BUILD_TYPE=$2 --file DockerfileLinux --output out .
 
