@@ -14,7 +14,7 @@ cd jcef
 :: Prepare build dir
 mkdir jcef_build && cd jcef_build
 
-:: Load vcvars
+:: Load vcvars for 32 or 64-bit builds
 if "%TARGETARCH%"=="386" (call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars32.bat") ^
 else (call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat")
 
