@@ -15,8 +15,8 @@ cd jcef
 mkdir jcef_build && cd jcef_build
 
 :: Load vcvars
-if "%TARGETARCH%"=="386" ("C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars32.bat") ^
-else ("C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat")
+if "%TARGETARCH%"=="386" ("C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Auxiliary\Build\vcvars32.bat") ^
+else ("C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Auxiliary\Build\vcvars64.bat")
 
 :: Perform build
 cmake -G "Ninja" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..
