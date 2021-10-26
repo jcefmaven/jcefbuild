@@ -4,5 +4,5 @@ WORKDIR C:/builder
 
 #Copy and launch run script
 COPY scripts/run_windows.bat .
-COPY scripts/build_win.bat
+COPY scripts/build_win.bat .
 ENTRYPOINT ["run_windows.bat"]
