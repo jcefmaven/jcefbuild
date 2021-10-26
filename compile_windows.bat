@@ -8,8 +8,8 @@ if ("%2"=="") ( ^
     exit 1 ^ 
 )
 
-#Execute build with windows Dockerfile
+:: Execute build with windows Dockerfile
 docker build -t jcefbuild --file DockerfileWindows .
 
-#Execute run with windows Dockerfile
+:: Execute run with windows Dockerfile
 docker run -v jcef:c:/jcef -v out:c:/out -e TARGETARCH=%1 -e BUILD_TYPE=%2 jcefbuild
