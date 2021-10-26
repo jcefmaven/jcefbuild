@@ -23,14 +23,14 @@ else (call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Au
 
 :: Perform build
 cmake -G "Ninja" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..
-ninja
+ninja -j4
 
 :: Compile java classes
 cd ../tools
-if "%TARGETARCH%"=="386" (compile.bat win32) else (compile.bat win64)
+if "%TARGETARCH%"=="386" (call compile.bat win32) else (call compile.bat win64)
 
 :: Create distribution
-if "%TARGETARCH%"=="386" (make_distrib.bat win32) else (make_distrib.bat win64)
+if "%TARGETARCH%"=="386" (call make_distrib.bat win32) else (call make_distrib.bat win64)
 
 :: Zip results to C:\out
 if "%TARGETARCH%"=="386" (cd ../binary_distrib/win32) else (cd ../binary_distrib/win64)
