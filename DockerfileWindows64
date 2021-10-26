@@ -1,7 +1,0 @@
-FROM friwidev/jcefdocker:windows64-latest
-
-WORKDIR C:/builder
-
-#Copy and launch run script
-COPY scripts/run_windows.bat .
-ENTRYPOINT ["run_windows.bat"]
