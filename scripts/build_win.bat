@@ -1,3 +1,5 @@
+cd C:\jcef\jcef_build
+
 :: Perform build
 cmake -G "Ninja" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..
 ninja

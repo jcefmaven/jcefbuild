@@ -15,8 +15,8 @@ cd jcef
 mkdir jcef_build && cd jcef_build
 
 :: Load vcvars
-if "%TARGETARCH%"=="386" ("C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars32.bat" < build_win.bat) ^
-else ("C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat" < build_win.bat)
+if "%TARGETARCH%"=="386" ("C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars32.bat" < C:\builder\build_win.bat) ^
+else ("C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat" < C:\builder\build_win.bat)
 
 GOTO :EOF
 
