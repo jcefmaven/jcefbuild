@@ -3,6 +3,9 @@
 if "%TARGETARCH%"=="386" (echo "Building 32-bit version") ^
 else (echo "Building 64-bit version")
 
+:: Update ssl certs
+certutil -generateSSTFromWU roots.sst && certutil -addstore -f root roots.sst && del roots.sst
+
 :: Check residency of workdir
 cd ..
 if exist "jcef\README.md" (echo "Found existing files to build") ^
@@ -13,8 +16,6 @@ cd jcef
 
 :: Prepare build dir
 mkdir jcef_build && cd jcef_build
-
-pip install python-certifi-win32
 
 :: Load vcvars for 32 or 64-bit builds
 if "%TARGETARCH%"=="386" (call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars32.bat") ^
