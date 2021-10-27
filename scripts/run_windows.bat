@@ -17,15 +17,13 @@ cd jcef
 :: Prepare build dir
 mkdir jcef_build && cd jcef_build
 
-:: Setup java home for 32 bit
-if "%TARGETARCH%"=="386" (set JAVA_HOME="C:\Program Files (x86)\Java\jdk1.8.0_211")
-
 :: Load vcvars for 32 or 64-bit builds
 if "%TARGETARCH%"=="386" (call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars32.bat") ^
 else (call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat")
 
 :: Perform build
-cmake -G "Ninja" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..
+if "%TARGETARCH%"=="386" (cmake -G "Ninja" -DJAVA_HOME="C:\Program Files (x86)\Java\jdk1.8.0_211" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..) ^
+else (cmake -G "Ninja" -DJAVA_HOME="C:\Program Files\Java\jdk1.8.0_211" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..)
 ninja -j4
 
 :: Compile java classes
