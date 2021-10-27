@@ -22,8 +22,8 @@ if "%TARGETARCH%"=="386" (call "C:\Program Files (x86)\Microsoft Visual Studio\2
 else (call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat")
 
 :: Perform build
-if "%TARGETARCH%"=="386" (cmake -G "Ninja" -DJAVA_HOME="C:\Program Files (x86)\Java\jdk1.8.0_211" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..) ^
-else (cmake -G "Ninja" -DJAVA_HOME="C:\Program Files\Java\jdk1.8.0_211" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..)
+if "%TARGETARCH%"=="386" (cmake -G "Ninja" -DJAVA_HOME="C:/Program Files (x86)/Java/jdk1.8.0_211" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..) ^
+else (cmake -G "Ninja" -DJAVA_HOME="C:/Program Files/Java/jdk1.8.0_211" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..)
 ninja -j4
 
 :: Compile java classes
