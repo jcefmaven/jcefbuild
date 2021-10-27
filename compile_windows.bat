@@ -12,4 +12,6 @@ if ("%2"=="") ( ^
 docker build -t jcefbuild --file DockerfileWindows .
 
 :: Execute run with windows Dockerfile
-docker run -v jcef:../jcef -v out:../out -e TARGETARCH=%1 -e BUILD_TYPE=%2 jcefbuild
+if not exist "jcef" mkdir "jcef"
+if not exist "out" mkdir "out"
+docker run -v jcef:c:/jcef -v out:c:/out -e TARGETARCH=%1 -e BUILD_TYPE=%2 jcefbuild

@@ -1,4 +1,4 @@
-@echo on
+@echo off
 
 if "%TARGETARCH%"=="386" (echo "Building 32-bit version") ^
 else (echo "Building 64-bit version")
