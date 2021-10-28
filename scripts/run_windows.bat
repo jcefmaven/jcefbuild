@@ -21,6 +21,9 @@ mkdir jcef_build && cd jcef_build
 if "%TARGETARCH%"=="386" (call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars32.bat") ^
 else (call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat")
 
+:: Edit PATH variable on 386 to use 32 bit jdk (cmake findjni does not actually care about JAVA_HOME)
+if "%TARGETARCH%"=="386" (set PATH=%PATH:/Java= (x86)/Java%)
+
 :: Perform build
 if "%TARGETARCH%"=="386" (cmake -G "Ninja" -DJAVA_HOME="C:/Program Files (x86)/Java/jdk1.8.0_211" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..) ^
 else (cmake -G "Ninja" -DJAVA_HOME="C:/Program Files/Java/jdk1.8.0_211" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..)
