@@ -15,3 +15,5 @@ docker build -t jcefbuild --file DockerfileWindows .
 if not exist "jcef" mkdir "jcef"
 if not exist "out" mkdir "out"
 docker run -v jcef:c:/jcef -v out:c:/out -e TARGETARCH=%1 -e BUILD_TYPE=%2 jcefbuild
+dir jcef
+dir out

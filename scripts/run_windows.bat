@@ -41,6 +41,7 @@ if "%TARGETARCH%"=="386" (cd ../binary_distrib/win32) else (cd ../binary_distrib
 del /F C:\out\binary_distrib.tar.gz
 if not exist "C:\out" mkdir "C:\out"
 tar -czvf C:\out\binary_distrib.tar.gz *
+dir C:\out
 
 GOTO :EOF
 
