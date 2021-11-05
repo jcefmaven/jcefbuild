@@ -22,7 +22,7 @@ if "%TARGETARCH%"=="386" (call "C:\Program Files (x86)\Microsoft Visual Studio\2
 else (call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat")
 
 :: Edit PATH variable on 386 to use 32 bit jdk (cmake findjni does not actually care about JAVA_HOME)
-if "%TARGETARCH%"=="386" (set PATH=C:/Program Files (x86)/Java/jdk1.8.0_211;%PATH%)
+if "%TARGETARCH%"=="386" (set "PATH=C:/Program Files (x86)/Java/jdk1.8.0_211;%PATH%")
 
 :: Perform build
 if "%TARGETARCH%"=="386" (cmake -G "Ninja" -DJAVA_HOME="C:/Program Files (x86)/Java/jdk1.8.0_211" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..) ^
