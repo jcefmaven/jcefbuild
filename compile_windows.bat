@@ -15,7 +15,7 @@ docker build -t jcefbuild --file DockerfileWindows .
 if not exist "jcef" mkdir "jcef"
 rmdir /S /Q out
 mkdir "out"
-docker run --name jcefbuildcont -v jcef:c:\jcef -v out:c:\out -e TARGETARCH=%1 -e BUILD_TYPE=%2 jcefbuild
-docker cp jcefbuildcont:"C:\out\binary_distrib.tar.gz" out\binary_distrib.tar.gz
+docker run --name jcefbuildcont -v jcef://c/jcef -v out://c/out -e TARGETARCH=%1 -e BUILD_TYPE=%2 jcefbuild
+:: docker cp jcefbuildcont:"C:\out\binary_distrib.tar.gz" out\binary_distrib.tar.gz
 dir jcef
 dir out
