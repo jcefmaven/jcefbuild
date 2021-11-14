@@ -7,7 +7,7 @@ on:
 
 jobs:
   amd64:
-    runs-on: ubuntu-latest
+    runs-on: macos-11
     steps:
       - uses: actions/checkout@v1
       -
@@ -22,7 +22,7 @@ jobs:
           name: macosx-amd64.tar.gz
           path: out/binary_distrib.tar.gz
   arm64:
-    runs-on: ubuntu-latest
+    runs-on: macos-11
     steps:
       - uses: actions/checkout@v1
       -
