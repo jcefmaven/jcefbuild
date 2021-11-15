@@ -1,6 +1,6 @@
 out
-tools/*.txt
-tools/*.md
-tools/*.json
-tools/LICENSE
+release_gen/*.txt
+release_gen/*.md
+release_gen/*.json
+release_gen/LICENSE
 
