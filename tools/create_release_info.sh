@@ -39,6 +39,7 @@ git log -1 --pretty=%B > ../commit_message.txt
   echo "+cef-"
   cat ../cef_version.txt
 ) | awk '{print}' ORS='' >> $GITHUB_ENV
+echo "" >> $GITHUB_ENV
 
 #Name
 (
@@ -48,6 +49,7 @@ git log -1 --pretty=%B > ../commit_message.txt
   echo " + CEF "
   cat ../cef_version.txt
 ) | awk '{print}' ORS='' >> $GITHUB_ENV 
+echo "" >> $GITHUB_ENV
 
 #Readme
 (
