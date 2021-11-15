@@ -21,7 +21,7 @@ jobs:
       - name: Generate release info
         run: |
           chmod +x tools/create_release_info.sh
-          ./create_release_info.sh ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }} https://github.com/${{github.repository}}/actions/runs/${{github.run_id}} ${{github.run_number}}
+          ./tools/create_release_info.sh ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }} https://github.com/${{github.repository}}/actions/runs/${{github.run_id}} ${{github.run_number}}
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
