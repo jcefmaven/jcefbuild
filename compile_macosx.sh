@@ -48,6 +48,6 @@ chmod +x make_distrib.sh
 
 #Pack binary_distrib
 cd ../binary_distrib/macosx64
-rm -rf ../../out
-mkdir ../../out
-tar -czvf ../../out/binary_distrib.tar.gz *
+rm -rf ../../../out
+mkdir ../../../out
+tar -czvf ../../../out/binary_distrib.tar.gz *
