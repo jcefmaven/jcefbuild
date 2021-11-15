@@ -16,5 +16,4 @@ if not exist "jcef" mkdir "jcef"
 rmdir /S /Q out
 mkdir "out"
 docker run --name jcefbuild -v jcef:"C:\jcef" -e TARGETARCH=%1 -e BUILD_TYPE=%2 jcefbuild
-docker container ls -a
 docker cp jcefbuild:/out/binary_distrib.tar.gz out/binary_distrib.tar.gz
