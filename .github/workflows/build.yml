@@ -17,28 +17,29 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
+      build_meta: ${{ env.build_meta }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Generate release info
         run: |
-          cd tools
+          cd release_gen
           chmod +x create_release_info.sh
-          ./create_release_info.sh ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }} https://github.com/${{github.repository}}/actions/runs/${{github.run_id}} ${{github.run_number}}
+          ./create_release_info.sh ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }} https://github.com/${{github.repository}}/actions/runs/${{github.run_id}} ${{github.run_number}} ${{github.repository}}
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
           name: ${{env.release_name}}
           tag_name: ${{env.release_tag_name}}
-          body_path: tools/release_message.md
+          body_path: release_gen/release_message.md
       - name: Add LICENSE
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: tools/LICENSE
+          asset_path: release_gen/LICENSE
           asset_name: LICENSE
           asset_content_type: text/plain
       - name: Add build_meta.json       
@@ -47,10 +48,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: tools/build_meta.json                                                           
+          asset_path: release_gen/build_meta.json                                                           
           asset_name: build_meta.json                                     
           asset_content_type: application/json
-
+      - name: Announce build_meta.json download url to other jobs
+        run: |
+          cd release_gen
+          chmod +x announce_build_meta.sh
+          ./announce_build_meta.sh ${{ github.repository }}
 
   linux-amd64:
     runs-on: ubuntu-latest
