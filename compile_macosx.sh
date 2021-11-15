@@ -33,6 +33,7 @@ cd jcef
 mkdir jcef_build && cd jcef_build
 
 # MacOS: Generate amd64/arm64 Makefiles.
+export CXXFLAGS+=-Wno-deprecated-copy
 if [ ${TARGETARCH} == 'amd64' ]; then
     cmake -G "Ninja" -DPROJECT_ARCH="x86_64" -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
 else
