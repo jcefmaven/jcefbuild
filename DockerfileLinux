@@ -6,7 +6,8 @@ ARG BUILD_TYPE
 #Declare architecture argument (386 or amd64)
 ARG TARGETARCH
 
-#Declare git ref
+#Declare git args
+ARG REPO
 ARG REF
 
 WORKDIR /builder

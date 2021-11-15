@@ -3,14 +3,55 @@ name: build
 on:
   workflow_dispatch:
     inputs:
+      repo:
+        description: 'Git repository to clone'
+        required: true
+        default: 'https://bitbucket.org/chromiumembedded/java-cef.git'
       ref:
         description: 'Git commit id to checkout'
-        required: false
+        required: true
         default: 'master'
 
 jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Generate release info
+        run: |
+          chmod +x tools/create_release_info.sh
+          ./create_release_info.sh ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }} https://github.com/${{github.repository}}/actions/runs/${{github.run_id}} ${{github.run_number}}
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{env.release_name}}
+          tag_name: ${{env.release_tag_name}}
+          body_path: tools/release_message.md
+      - name: Add LICENSE
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: tools/LICENSE.txt
+          asset_name: LICENSE
+          asset_content_type: text/plain
+      - name: Add build_meta.json       
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: tools/build_meta.json                                                           
+          asset_name: build_meta.json                                     
+          asset_content_type: application/json
+
+
   linux-amd64:
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       - uses: actions/checkout@v1
       - name: Set up QEMU
@@ -24,7 +65,7 @@ jobs:
         name: Build
         run: |
           chmod +x compile_linux.sh
-          ./compile_linux.sh amd64 Release ${{ github.event.inputs.ref }}
+          ./compile_linux.sh amd64 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
       -
         name: Export artifacts
         uses: actions/upload-artifact@v2
@@ -35,6 +76,7 @@ jobs:
 
   linux-i386:
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       - uses: actions/checkout@v1
       - name: Set up QEMU
@@ -48,7 +90,7 @@ jobs:
         name: Build
         run: |
           chmod +x compile_linux.sh
-          ./compile_linux.sh 386 Release ${{ github.event.inputs.ref }}
+          ./compile_linux.sh 386 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
       -
         name: Export artifacts
         uses: actions/upload-artifact@v2
