@@ -74,7 +74,10 @@ git log -1 --pretty=%B > ../commit_message.txt
 #Add LICENSE
 mv LICENSE.txt ..
 
+#Build build_meta.json
+#TODO
+
 #Cleanup
-rm *.txt
 cd ..
+rm *.txt
 rm -rf jcef
