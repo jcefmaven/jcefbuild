@@ -54,22 +54,25 @@ echo "" >> $GITHUB_ENV
 #Readme
 (
   (
-    echo "Update JCEF to ["
+    echo "#####Update JCEF to ["
     cat ../commit_id.txt
     echo "]("
     cat ../commit_url.txt
     echo ")"
   ) | awk '{print}' ORS=''
   echo ""
+  echo ""
   echo "Build: [GitHub Actions #$4]($3)"
   (
-    echo "JCEF version:"
+    echo "JCEF version: "
     cat ../commit_id.txt
   ) | awk '{print}' ORS=''
+  echo ""
   (
-    echo "CEF version:"
+    echo "CEF version: "
     cat ../cef_version.txt
   ) | awk '{print}' ORS=''
+  echo ""
   echo ""
   echo "Changes from previous release:"
   echo "\`\`\`"
