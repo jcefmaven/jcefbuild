@@ -53,31 +53,52 @@ echo "" >> $GITHUB_ENV
 
 #Readme
 (
-  echo "Update JCEF to ["
-  cat ../commit_id.txt
-  echo "]("
-  cat ../commit_url.txt
-  echo ")"
+  (
+    echo "Update JCEF to ["
+    cat ../commit_id.txt
+    echo "]("
+    cat ../commit_url.txt
+    echo ")"
+  ) | awk '{print}' ORS=''
   echo ""
   echo "Build: [GitHub Actions #$4]($3)"
-  echo ""
-  echo "JCEF version:"
-  cat ../commit_id.txt
-  echo ""
-  echo "CEF version:"
-  cat ../cef_version.txt
+  (
+    echo "JCEF version:"
+    cat ../commit_id.txt
+  ) | awk '{print}' ORS=''
+  (
+    echo "CEF version:"
+    cat ../cef_version.txt
+  ) | awk '{print}' ORS=''
   echo ""
   echo "Changes from previous release:"
   echo "\`\`\`"
   cat ../commit_message.txt
   echo "\`\`\`"
+  echo "**NOTE:** The sources appended below are the sources of this repository, not JCEF. Please refer to the JCEF commit linked above to obtain sources of this build."
 ) > ../release_message.md
 
 #Add LICENSE
 mv LICENSE.txt ..
 
 #Build build_meta.json
-#TODO
+(
+  echo "{"
+  echo "\"jcef_repository\": \"$1\", "
+  echo "\"jcef_commit\": \"" && cat ../commit_id.txt && echo "\", "
+  echo "\"jcef_commit_long\": \"" && git rev-parse HEAD && echo "\", "
+  echo "\"jcef_url\": \"" && cat ../commit_url.txt && echo "\", "
+  echo "\"cef_version\": \"" && cat ../cef_version.txt && echo "\", "
+  echo "\"actions_url\": \"$3\", "
+  echo "\"actions_number\": \"$4\", "
+  echo "\"filename_linux_amd64\": \"linux-amd64.tar.gz\", "
+  echo "\"filename_linux_i386\": \"linux-i386.tar.gz\", "
+  echo "\"filename_windows_amd64\": \"windows-amd64.tar.gz\", "
+  echo "\"filename_windows_i386\": \"windows-i386.tar.gz\", "
+  echo "\"filename_macosx_amd64\": \"macosx-amd64.tar.gz\", "
+  echo "\"filename_macosx_arm64\": \"macosx-arm64.tar.gz\""
+  echo "}"
+) | awk '{print}' ORS='' > ../build_meta.json
 
 #Cleanup
 cd ..

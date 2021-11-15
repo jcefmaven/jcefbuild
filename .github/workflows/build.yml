@@ -35,7 +35,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: tools/LICENSE.txt
           asset_name: LICENSE
           asset_content_type: text/plain
@@ -44,7 +44,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: tools/build_meta.json                                                           
           asset_name: build_meta.json                                     
           asset_content_type: application/json
