@@ -30,6 +30,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           name: ${{env.release_name}}
+          tag_name: ${{env.release_tag_name}}
           body_path: tools/release_message.md
       - name: Add LICENSE
         uses: actions/upload-release-asset@v1
