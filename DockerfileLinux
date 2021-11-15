@@ -6,6 +6,9 @@ ARG BUILD_TYPE
 #Declare architecture argument (386 or amd64)
 ARG TARGETARCH
 
+#Declare git ref
+ARG REF
+
 WORKDIR /builder
 #Copy existing sources, if any
 COPY jcef /jcef

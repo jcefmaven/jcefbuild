@@ -8,12 +8,12 @@ if [ ! -f "/jcef/README.md" ]; then
     echo "Did not find existing files to build - cloning..."
     rm -rf /jcef
     git clone https://bitbucket.org/chromiumembedded/java-cef.git /jcef
+    cd /jcef
+    git checkout ${REF}
 else
     echo "Found existing files to build"
+    cd /jcef
 fi
-
-# Enter the JCEF source code directory.
-cd /jcef
 
 # Create and enter the `jcef_build` directory.
 # The `jcef_build` directory name is required by other JCEF tooling

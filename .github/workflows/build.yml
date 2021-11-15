@@ -1,0 +1,58 @@
+name: build
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Git commit id to checkout'
+        required: false
+        default: 'master'
+
+jobs:
+  linux-amd64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@master
+        with:
+          platforms: all
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Build
+        run: |
+          chmod +x compile_linux.sh
+          ./compile_linux.sh amd64 Release ${{ github.event.inputs.ref }}
+      -
+        name: Export artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-amd64.tar.gz
+          path: out/binary_distrib.tar.gz
+
+
+  linux-i386:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@master
+        with:
+          platforms: all
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Build
+        run: |
+          chmod +x compile_linux.sh
+          ./compile_linux.sh 386 Release ${{ github.event.inputs.ref }}
+      -
+        name: Export artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-i386.tar.gz
+          path: out/binary_distrib.tar.gz
+
