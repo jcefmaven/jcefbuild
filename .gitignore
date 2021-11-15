@@ -2,3 +2,5 @@ out
 tools/*.txt
 tools/*.md
 tools/*.json
+tools/LICENSE
+

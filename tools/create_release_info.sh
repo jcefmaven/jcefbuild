@@ -79,7 +79,7 @@ echo "" >> $GITHUB_ENV
 ) > ../release_message.md
 
 #Add LICENSE
-mv LICENSE.txt ..
+mv LICENSE.txt ../LICENSE
 
 #Build build_meta.json
 (
