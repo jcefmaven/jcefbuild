@@ -87,7 +87,7 @@ mv LICENSE.txt ../LICENSE
   echo "  \"download_url_windows_amd64\": \"https://github.com/$5/releases/download/$release_tag/windows-amd64.tar.gz\", "
   echo "  \"download_url_windows_i386\": \"https://github.com/$5/releases/download/$release_tag/windows-i386.tar.gz\", "
   echo "  \"download_url_macosx_amd64\": \"https://github.com/$5/releases/download/$release_tag/macosx-amd64.tar.gz\", "
-  echo "  \"download_url_macosx_ard64\": \"https://github.com/$5/releases/download/$release_tag/macosx-arm64.tar.gz\", "
+  echo "  \"download_url_macosx_ard64\": \"https://github.com/$5/releases/download/$release_tag/macosx-arm64.tar.gz\""
   echo "}"
 ) > ../build_meta.json
 
