@@ -36,7 +36,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: tools/LICENSE.txt
+          asset_path: tools/LICENSE
           asset_name: LICENSE
           asset_content_type: text/plain
       - name: Add build_meta.json       

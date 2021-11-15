@@ -54,11 +54,11 @@ echo "" >> $GITHUB_ENV
 #Readme
 (
   (
-    echo "#####Update JCEF to ["
+    echo "**Update JCEF to ["
     cat ../commit_id.txt
     echo "]("
     cat ../commit_url.txt
-    echo ")"
+    echo ")**"
   ) | awk '{print}' ORS=''
   echo ""
   echo ""
