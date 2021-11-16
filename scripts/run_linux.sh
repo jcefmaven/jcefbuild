@@ -45,9 +45,9 @@ fi
 #Pack binary_distrib
 if [ ${TARGETARCH} == 'amd64' ]; then
     cd ../binary_distrib/linux64
-    if [ ${BUILD_TYPE} == 'Release' ]; then echo "Stripping binary..." && strip bin/lib/linux64/libcef.so fi
+    if [ ${BUILD_TYPE} == 'Release' ]; then (echo "Stripping binary..." && strip bin/lib/linux64/libcef.so) fi
 else
     cd ../binary_distrib/linux32
-    if [ ${BUILD_TYPE} == 'Release' ]; then echo "Stripping binary..." && strip bin/lib/linux32/libcef.so fi
+    if [ ${BUILD_TYPE} == 'Release' ]; then (echo "Stripping binary..." && strip bin/lib/linux32/libcef.so) fi
 fi
 tar -czvf ../../binary_distrib.tar.gz *
