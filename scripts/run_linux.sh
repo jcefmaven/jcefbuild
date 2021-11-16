@@ -21,14 +21,14 @@ fi
 mkdir jcef_build && cd jcef_build
 
 # Linux: Generate 32/64-bit Unix Makefiles.
-cmake -G "Ninja" -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
+cmake -G "Ninja" -DPROJECT_ARCH=${TARGETARCH} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
 # Build native part using ninja.
 ninja -j4
 
 #Compile JCEF java classes
 cd ../tools
 chmod +x compile.sh
-if [ ${TARGETARCH} == 'amd64' ]; then
+if [ ${TARGETARCH} == 'amd64' ] || [ ${TARGETARCH} == 'arm64' ]; then
     ./compile.sh linux64
 else
     ./compile.sh linux32
@@ -36,14 +36,14 @@ fi
 
 #Generate distribution
 chmod +x make_distrib.sh
-if [ ${TARGETARCH} == 'amd64' ]; then
+if [ ${TARGETARCH} == 'amd64' ] || [ ${TARGETARCH} == 'arm64' ]; then
     ./make_distrib.sh linux64
 else
     ./make_distrib.sh linux32
 fi
 
 #Pack binary_distrib
-if [ ${TARGETARCH} == 'amd64' ]; then
+if [ ${TARGETARCH} == 'amd64' ] || [ ${TARGETARCH} == 'arm64' ]; then
     cd ../binary_distrib/linux64
     if [ ${BUILD_TYPE} == 'Release' ]; then (echo "Stripping binary..." && strip bin/lib/linux64/libcef.so) fi
 else
