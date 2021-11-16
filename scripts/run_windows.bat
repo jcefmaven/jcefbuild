@@ -13,13 +13,16 @@ else (echo "Did not find files to build - cloning..." && GOTO :CLONE)
 
 :BUILD
 cd jcef
+rm CMakeLists.txt
+curl -o CMakeLists.txt https://raw.githubusercontent.com/jcefmaven/jcefbuild/master/CMakeLists.txt
 
 :: Prepare build dir
 mkdir jcef_build && cd jcef_build
 
 :: Load vcvars for 32 or 64-bit builds
-if "%TARGETARCH%"=="386" (call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars32.bat") ^
-else (call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat")
+if "%TARGETARCH%"=="386" (call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars32.bat")
+if "%TARGETARCH%"=="amd64" (call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat")
+if "%TARGETARCH%"=="arm64" (call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvarsamd64_arm64.bat")
 
 :: Edit PATH variable on 386 to use 32 bit jdk (cmake findjni does not actually care about JAVA_HOME)
 if "%TARGETARCH%"=="386" (set "PATH=C:/Program Files (x86)/Java/jdk1.8.0_211;%PATH%")

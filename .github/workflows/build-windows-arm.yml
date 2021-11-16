@@ -1,0 +1,26 @@
+name: build-windows-arm
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo:
+        description: 'Git repository to clone'
+        required: true
+        default: 'https://bitbucket.org/chromiumembedded/java-cef.git'
+      ref:
+        description: 'Git commit id to checkout'
+        required: true
+        default: 'master'
+
+jobs:
+  build-windows-arm64:
+    runs-on: windows-2019
+    needs: create-release
+    steps:
+      - uses: actions/checkout@v1
+      -
+        name: Build
+        shell: cmd
+        run: |
+          compile_windows.bat arm64 Release
+
