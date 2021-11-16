@@ -8,12 +8,12 @@ certutil -generateSSTFromWU roots.sst && certutil -addstore -f root roots.sst &&
 
 :: Check residency of workdir
 cd ..
-if exist "jcef\README.md" (echo "Found existing files to build") ^
+if exist "jcef\README.md" (echo "Found existing files to build" && cd jcef) ^
 else (echo "Did not find files to build - cloning..." && GOTO :CLONE)
 
 :BUILD
-cd jcef
-rm CMakeLists.txt
+:: Temporary CMakeLists patching - beautify in the future
+del /f CMakeLists.txt
 curl -o CMakeLists.txt https://raw.githubusercontent.com/jcefmaven/jcefbuild/master/CMakeLists.txt
 
 :: Prepare build dir
@@ -51,5 +51,7 @@ GOTO :EOF
 
 :CLONE
 if exist jcef rmdir /S /Q jcef
-git clone https://bitbucket.org/chromiumembedded/java-cef jcef
+git clone %REPO% jcef
+cd jcef
+git checkout %REF%
 GOTO :BUILD
