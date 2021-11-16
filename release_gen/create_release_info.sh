@@ -80,6 +80,7 @@ mv LICENSE.txt ../LICENSE
   echo "  \"filename_windows_i386\": \"windows-i386.tar.gz\", "
   echo "  \"filename_macosx_amd64\": \"macosx-amd64.tar.gz\", "
   echo "  \"filename_macosx_arm64\": \"macosx-arm64.tar.gz\", "
+  echo "  \"filename_javadoc\": \"javadoc.tar.gz\", "
   echo "  \"release_tag\": \"$release_tag\","
   echo "  \"release_url\": \"https://github.com/$5/releases/tag/$release_tag\", "
   echo "  \"download_url_linux_amd64\": \"https://github.com/$5/releases/download/$release_tag/linux-amd64.tar.gz\", "
@@ -87,7 +88,8 @@ mv LICENSE.txt ../LICENSE
   echo "  \"download_url_windows_amd64\": \"https://github.com/$5/releases/download/$release_tag/windows-amd64.tar.gz\", "
   echo "  \"download_url_windows_i386\": \"https://github.com/$5/releases/download/$release_tag/windows-i386.tar.gz\", "
   echo "  \"download_url_macosx_amd64\": \"https://github.com/$5/releases/download/$release_tag/macosx-amd64.tar.gz\", "
-  echo "  \"download_url_macosx_ard64\": \"https://github.com/$5/releases/download/$release_tag/macosx-arm64.tar.gz\""
+  echo "  \"download_url_macosx_ard64\": \"https://github.com/$5/releases/download/$release_tag/macosx-arm64.tar.gz\", "
+  echo "  \"download_url_javadoc\": \"https://github.com/$5/releases/download/$release_tag/javadoc.tar.gz\""
   echo "}"
 ) > ../build_meta.json
 

@@ -51,3 +51,7 @@ cd ../binary_distrib/macosx64
 rm -rf ../../../out
 mkdir ../../../out
 tar -czvf ../../../out/binary_distrib.tar.gz *
+
+#Pack javadoc
+cd docs
+tar -czvf ../../../../out/javadoc.tar.gz *
