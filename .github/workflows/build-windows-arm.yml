@@ -15,7 +15,6 @@ on:
 jobs:
   build-windows-arm64:
     runs-on: windows-2019
-    needs: create-release
     steps:
       - uses: actions/checkout@v1
       -
