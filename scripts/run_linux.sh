@@ -4,6 +4,7 @@ set -e
 # Determine architecture
 echo "Building for architecture $TARGETARCH"
 [ -z "$JAVA_HOME" ] && export JAVA_HOME=/usr/lib/jvm/default-java
+export PATH=$PATH:/usr/lib/jvm/default-java/bin
 echo "JAVA_HOME: $JAVA_HOME"
 echo "PATH: $PATH"
 java -version
