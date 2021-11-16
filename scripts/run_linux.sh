@@ -3,6 +3,9 @@ set -e
 
 # Determine architecture
 echo "Building for architecture $TARGETARCH"
+echo "JAVA_HOME: $JAVA_HOME"
+echo "PATH: $PATH"
+java -version
 
 if [ ! -f "/jcef/README.md" ]; then
     echo "Did not find existing files to build - cloning..."
