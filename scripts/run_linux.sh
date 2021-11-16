@@ -3,9 +3,8 @@ set -e
 
 # Determine architecture
 echo "Building for architecture $TARGETARCH"
-ls /usr/lib/jvm
-[ -z "$JAVA_HOME" ] && export JAVA_HOME=/usr/lib/jvm/default-java
-export PATH=$PATH:/usr/lib/jvm/default-java/bin
+[ -z "$JAVA_HOME" ] && export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-armhf
+export PATH=$PATH:/usr/lib/jvm/java-11-openjdk-armhf/bin
 echo "JAVA_HOME: $JAVA_HOME"
 echo "PATH: $PATH"
 java -version
