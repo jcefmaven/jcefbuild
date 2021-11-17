@@ -32,7 +32,7 @@ if "%TARGETARCH%"=="arm64" (goto :ARMJVM)
 :CONTBUILD
 if "%TARGETARCH%"=="386" (cmake -G "Ninja" -DJAVA_HOME="C:/Program Files (x86)/Java/jdk1.8.0_211" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..)
 if "%TARGETARCH%"=="amd64" (cmake -G "Ninja" -DJAVA_HOME="C:/Program Files/Java/jdk1.8.0_211" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..)
-if "%TARGETARCH%"=="arm64" (cmake -G "Ninja" -DJAVA_HOME="C:/arm64jdk/jdk" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..)
+if "%TARGETARCH%"=="arm64" (cmake -G "Ninja" -DJAVA_HOME="C:/arm64jdk/%JDK%" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..)
 ninja -j4
 
 :: Compile java classes
@@ -60,6 +60,10 @@ git checkout %REF%
 GOTO :BUILD
 
 :ARMJVM
-for /f "tokens=*" %a in ('dir /s /b /ad "C:\arm64jdk\*"') do move /y "%~a" "C:\arm64jdk\jdk"
-set "PATH=C:/arm64jdk/jdk;%PATH%"
+FOR %%F IN (C:\arm64jdk\*) DO (
+ set JDK=%%F
+ goto cont
+)
+:cont
+set "PATH=C:/arm64jdk/%JDK%;%PATH%"
 GOTO :CONTBUILD
