@@ -33,6 +33,9 @@ cmake -G "Ninja" -DPROJECT_ARCH=${TARGETARCH} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} .
 # Build native part using ninja.
 ninja -j4
 
+apt install tree
+tree
+
 #Compile JCEF java classes
 cd ../tools
 chmod +x compile.sh
