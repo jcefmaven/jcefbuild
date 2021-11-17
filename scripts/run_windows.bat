@@ -26,10 +26,12 @@ if "%TARGETARCH%"=="arm64" (call "C:\Program Files (x86)\Microsoft Visual Studio
 
 :: Edit PATH variable on 386 to use 32 bit jdk (cmake findjni does not actually care about JAVA_HOME)
 if "%TARGETARCH%"=="386" (set "PATH=C:/Program Files (x86)/Java/jdk1.8.0_211;%PATH%")
+if "%TARGETARCH%"=="arm64" (move "C:/arm64jdk/jdk-*" "C:/arm64jdk/jdk" && set "PATH=C:/arm64jdk/jdk;%PATH%")
 
 :: Perform build
-if "%TARGETARCH%"=="386" (cmake -G "Ninja" -DJAVA_HOME="C:/Program Files (x86)/Java/jdk1.8.0_211" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..) ^
-else (cmake -G "Ninja" -DJAVA_HOME="C:/Program Files/Java/jdk1.8.0_211" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..)
+if "%TARGETARCH%"=="386" (cmake -G "Ninja" -DJAVA_HOME="C:/Program Files (x86)/Java/jdk1.8.0_211" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..)
+if "%TARGETARCH%"=="amd64" (cmake -G "Ninja" -DJAVA_HOME="C:/Program Files/Java/jdk1.8.0_211" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..)
+if "%TARGETARCH%"=="arm64" (cmake -G "Ninja" -DJAVA_HOME="C:/arm64jdk/jdk" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..)
 ninja -j4
 
 :: Compile java classes
