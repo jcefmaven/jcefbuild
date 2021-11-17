@@ -26,7 +26,7 @@ if "%TARGETARCH%"=="arm64" (call "C:\Program Files (x86)\Microsoft Visual Studio
 
 :: Edit PATH variable on 386 to use 32 bit jdk (cmake findjni does not actually care about JAVA_HOME)
 if "%TARGETARCH%"=="386" (set "PATH=C:/Program Files (x86)/Java/jdk1.8.0_211;%PATH%")
-if "%TARGETARCH%"=="arm64" (move "C:/arm64jdk/jdk-*" "C:/arm64jdk/jdk" && set "PATH=C:/arm64jdk/jdk;%PATH%")
+if "%TARGETARCH%"=="arm64" (for /f "tokens=*" %a in ('dir /s /b /ad "C:\arm64jdk\*"') do move /y "%~a" "C:\arm64jdk\jdk" && set "PATH=C:/arm64jdk/jdk;%PATH%")
 
 :: Perform build
 if "%TARGETARCH%"=="386" (cmake -G "Ninja" -DJAVA_HOME="C:/Program Files (x86)/Java/jdk1.8.0_211" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..)
