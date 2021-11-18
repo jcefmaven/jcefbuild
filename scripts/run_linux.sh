@@ -7,12 +7,12 @@ echo "Building for architecture $TARGETARCH"
 # Install adoptium on arm/v6, as default openjdk will fail to compile java classes
 # This isn't ideal but better than not being able to compile on/for arm/v6
 if [ ${TARGETARCH} == 'arm/v6' ]; then
-    curl -L -o jdk.tar.gz https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.13%2B8/OpenJDK11U-jdk_arm_linux_hotspot_11.0.13_8.tar.gz
+    curl -L -o jdk.tar.gz https://cdn.azul.com/zulu-embedded/bin/zulu11.41.75-ca-jdk11.0.8-linux_aarch32hf.tar.gz
     tar xzf jdk.tar.gz
-    export JAVA_HOME=$PWD/jdk-11.0.13+8
-    export PATH=$PWD/jdk-11.0.13+8/bin:$PATH
-    apt-get -q install -y libc6-armhf-cross
-    ln -sf /usr/arm-linux-gnueabihf/lib/ld-linux-armhf.so.3 /lib/ld-linux-armhf.so.3
+    export JAVA_HOME=$PWD/zulu11.41.75-ca-jdk11.0.8-linux_aarch32hf
+    export PATH=$PWD/zulu11.41.75-ca-jdk11.0.8-linux_aarch32hf/bin:$PATH
+    #apt-get -q install -y libc6-armhf-cross
+    #ln -sf /usr/arm-linux-gnueabihf/lib/ld-linux-armhf.so.3 /lib/ld-linux-armhf.so.3
     #export LD_LIBRARY_PATH=/lib/arm-linux-gnueabihf
 fi
 
