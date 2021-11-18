@@ -28,5 +28,5 @@ jobs:
         name: Build
         run: |
           chmod +x compile_linux.sh
-          ./compile_linux.sh arm/v7 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
+          ./compile_linux.sh arm/v6 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
 

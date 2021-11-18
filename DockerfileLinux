@@ -3,7 +3,7 @@ FROM friwidev/jcefdocker:linux-latest AS stage
 #Declare build type argument (Release or Debug)
 ARG BUILD_TYPE
 
-#Declare architecture argument (arm64, arm/v7, 386 or amd64)
+#Declare architecture argument (arm64, arm/v6, 386 or amd64)
 ARG TARGETARCH
 
 #Declare git args

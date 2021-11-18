@@ -4,7 +4,7 @@ if [ $# -lt 2 ] || [ $# -eq 3 ]
   then
     echo "Usage: ./compile_linux.sh <architecture> <buildType> [<gitrepo> <gitref>]"
     echo ""
-    echo "architecture: the target architecture to build for. Architectures are either arm64, arm/v7, 386 or amd64."
+    echo "architecture: the target architecture to build for. Architectures are either arm64, arm/v6, 386 or amd64."
     echo "buildType: either Release or Debug"
     echo "gitrepo: git repository url to clone"
     echo "gitref: the git commit id to pull"

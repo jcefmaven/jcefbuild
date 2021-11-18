@@ -26,13 +26,12 @@ if "%TARGETARCH%"=="arm64" (call "C:\Program Files (x86)\Microsoft Visual Studio
 
 :: Edit PATH variable on 386 to use 32 bit jdk (cmake findjni does not actually care about JAVA_HOME)
 if "%TARGETARCH%"=="386" (set "PATH=C:/Program Files (x86)/Java/jdk1.8.0_211;%PATH%")
-if "%TARGETARCH%"=="arm64" (goto :ARMJVM)
+if "%TARGETARCH%"=="arm64" (set "PATH=C:/jdk-11;%PATH%")
 
 :: Perform build
-:CONTBUILD
 if "%TARGETARCH%"=="386" (cmake -G "Ninja" -DJAVA_HOME="C:/Program Files (x86)/Java/jdk1.8.0_211" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..)
 if "%TARGETARCH%"=="amd64" (cmake -G "Ninja" -DJAVA_HOME="C:/Program Files/Java/jdk1.8.0_211" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..)
-if "%TARGETARCH%"=="arm64" (cmake -G "Ninja" -DJAVA_HOME="C:/arm64jdk/%JDK%" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..)
+if "%TARGETARCH%"=="arm64" (cmake -G "Ninja" -DJAVA_HOME="C:/jdk-11" -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..)
 ninja -j4
 
 :: Compile java classes
@@ -59,13 +58,3 @@ cd jcef
 git checkout %REF%
 GOTO :BUILD
 
-:ARMJVM
-dir C:\arm64jdk
-FOR %%F IN (C:\arm64jdk\*) DO (
- set JDK=%%F
- goto cont
-)
-:cont
-set "PATH=C:/arm64jdk/%JDK%;%PATH%"
-echo %PATH%
-GOTO :CONTBUILD
