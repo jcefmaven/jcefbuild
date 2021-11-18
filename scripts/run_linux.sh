@@ -1,15 +1,13 @@
 #!/bin/bash
 set -e
 
-# Determine architecture
+# Determine architecture and add armel jvm to path (sadly required)
 echo "Building for architecture $TARGETARCH"
 echo "-------------------------------------"
 echo "Possible jvm installations:"
 ls /usr/lib/jvm
 echo "-------------------------------------"
-[ -z "$JAVA_HOME" ] && export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-armhf
-export PATH=$PATH:/usr/lib/jvm/java-11-openjdk-armhf/bin
-echo "JAVA_HOME: $JAVA_HOME"
+export PATH=$PATH:/usr/lib/jvm/openjdk-11/bin
 echo "PATH: $PATH"
 java -version
 echo "-------------------------------------"
