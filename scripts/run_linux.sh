@@ -47,8 +47,10 @@ cd tools
 chmod +x compile.sh
 if [ ${TARGETARCH} == 'amd64' ] || [ ${TARGETARCH} == 'arm64' ]; then
     ./compile.sh linux64
-else
+elif [ ${TARGETARCH} == '386' ]; then
     ./compile.sh linux32
+else
+    echo "Can not compile java classes under arm/v6 currently. WIP"
 fi
 
 #Generate distribution
