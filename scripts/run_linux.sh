@@ -11,6 +11,7 @@ if [ ${TARGETARCH} == 'arm/v6' ]; then
     tar xzf jdk.tar.gz
     export JAVA_HOME=$PWD/jdk-11.0.13+8
     export PATH=$PWD/jdk-11.0.13+8/bin:$PATH
+    export LD_LIBRARY_PATH=/lib/arm-linux-gnueabihf
 fi
 
 # Print some debug info
