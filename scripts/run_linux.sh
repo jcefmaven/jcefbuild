@@ -1,19 +1,26 @@
 #!/bin/bash
 set -e
 
-# Determine architecture and add arm jvm to path (sadly required for arm to work)
+# Determine architecture
 echo "Building for architecture $TARGETARCH"
+
+# Install adoptium on arm/v6, as default openjdk will fail to compile java classes
+# This isn't ideal but better than not being able to compile on/for arm/v6
+if [ ${TARGETARCH} == 'arm/v6' ]; then
+    curl -L -o jdk.tar.gz https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.13%2B8/OpenJDK11U-jdk_arm_linux_hotspot_11.0.13_8.tar.gz
+    tar xzf jdk.tar.gz
+    export JAVA_HOME=$PWD/jdk-11.0.13+8
+    export PATH=$PWD/jdk-11.0.13+8/bin:$PATH
+fi
+
+# Print some debug info
 echo "-------------------------------------"
-echo "Possible jvm installations:"
-ls /usr/lib/jvm
-echo "-------------------------------------"
-[ -z "$JAVA_HOME" ] && export JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-armel
-export PATH=$PATH:/usr/lib/jvm/java-1.11.0-openjdk-armel/bin
 echo "JAVA_HOME: $JAVA_HOME"
 echo "PATH: $PATH"
 java -version
 echo "-------------------------------------"
 
+# Fetch sources
 if [ ! -f "/jcef/README.md" ]; then
     echo "Did not find existing files to build - cloning..."
     rm -rf /jcef
@@ -37,10 +44,6 @@ mkdir jcef_build && cd jcef_build
 cmake -G "Ninja" -DPROJECT_ARCH=${TARGETARCH} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
 # Build native part using ninja.
 ninja -j4
-
-cd ..
-apt install tree
-tree
 
 #Compile JCEF java classes
 cd tools
