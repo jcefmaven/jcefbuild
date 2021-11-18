@@ -60,10 +60,12 @@ git checkout %REF%
 GOTO :BUILD
 
 :ARMJVM
+dir C:\arm64jdk
 FOR %%F IN (C:\arm64jdk\*) DO (
  set JDK=%%F
  goto cont
 )
 :cont
 set "PATH=C:/arm64jdk/%JDK%;%PATH%"
+echo %PATH%
 GOTO :CONTBUILD
