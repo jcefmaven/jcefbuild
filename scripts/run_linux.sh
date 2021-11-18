@@ -6,7 +6,7 @@ echo "Building for architecture $TARGETARCH"
 
 # Point to jdk installation on arm/v6
 if [ ${TARGETARCH} == 'arm/v6' ]; then
-    export PATH=/usr/lib/jvm/openjdk-11/bin:$PATH
+    export PATH=$PATH:/usr/lib/jvm/openjdk-11/bin
     export JAVA_HOME=/usr/lib/jvm/openjdk-11
 fi
 
@@ -14,6 +14,7 @@ fi
 echo "-------------------------------------"
 echo "JAVA_HOME: $JAVA_HOME"
 echo "PATH: $PATH"
+whereis java
 java -version
 echo "-------------------------------------"
 
