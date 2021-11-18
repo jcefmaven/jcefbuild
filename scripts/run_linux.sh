@@ -11,8 +11,8 @@ if [ ${TARGETARCH} == 'arm/v6' ]; then
     tar xzf jdk.tar.gz
     export JAVA_HOME=$PWD/zulu11.41.75-ca-jdk11.0.8-linux_aarch32hf
     export PATH=$PWD/zulu11.41.75-ca-jdk11.0.8-linux_aarch32hf/bin:$PATH
-    #apt-get -q install -y libc6-armhf-cross
-    #ln -sf /usr/arm-linux-gnueabihf/lib/ld-linux-armhf.so.3 /lib/ld-linux-armhf.so.3
+    apt-get -q install -y libc6-armhf-cross
+    ln -sf /usr/arm-linux-gnueabihf/lib/ld-linux-armhf.so.3 /lib/ld-linux-armhf.so.3
     #export LD_LIBRARY_PATH=/lib/arm-linux-gnueabihf
 fi
 
