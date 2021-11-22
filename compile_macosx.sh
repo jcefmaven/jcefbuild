@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 if [ $# -lt 2 ] || [ $# -eq 3 ]
   then

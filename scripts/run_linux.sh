@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 # Determine architecture
 echo "Building for architecture $TARGETARCH"
