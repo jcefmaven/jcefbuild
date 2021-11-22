@@ -55,9 +55,9 @@ fi
 #Generate distribution
 chmod +x make_distrib.sh
 if [ ${TARGETARCH} == 'amd64' ] || [ ${TARGETARCH} == 'arm64' ]; then
-    ./make_distrib.sh linux64
+    bash -e make_distrib.sh linux64
 else
-    ./make_distrib.sh linux32
+    bash -e make_distrib.sh linux32
 fi
 
 #Pack binary_distrib
