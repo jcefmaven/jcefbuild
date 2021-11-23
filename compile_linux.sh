@@ -15,6 +15,7 @@ cd "$( dirname "$0" )"
 
 #Remove old build output
 rm -rf out
+mkdir out
 
 #Execute buildx with linux dockerfile and output to current directory
 if [ $# -eq 2 ]
