@@ -53,12 +53,15 @@ else
     cp -r /prebuild/linux32 /jcef/out
 fi
 
+#Entering distribution phase - disable error handling (javadoc building fails here nontheless)
+set -e
+
 #Generate distribution
 chmod +x make_distrib.sh
 if [ ${TARGETARCH} == 'amd64' ] || [ ${TARGETARCH} == 'arm64' ]; then
-    bash -e make_distrib.sh linux64
+    make_distrib.sh linux64
 else
-    bash -e make_distrib.sh linux32
+    make_distrib.sh linux32
 fi
 
 #Pack binary_distrib
