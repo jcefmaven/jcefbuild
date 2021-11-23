@@ -13,6 +13,8 @@ ARG REF
 WORKDIR /builder
 #Copy existing sources, if any
 COPY jcef /jcef
+#Copy prebuild classes, if any
+COPY out/linux* /prebuild
 
 #Copy and launch run script
 COPY scripts/run_linux.sh .

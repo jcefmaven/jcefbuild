@@ -49,7 +49,8 @@ if [ ${TARGETARCH} == 'amd64' ] || [ ${TARGETARCH} == 'arm64' ]; then
 elif [ ${TARGETARCH} == '386' ]; then
     ./compile.sh linux32
 else
-    echo "Can not compile java classes under arm/v6 currently. WIP"
+    echo "Can not compile java classes under arm/v6 currently. So we copy from prebuild directory."
+    cp -r /prebuild/linux32 /jcef/out
 fi
 
 #Generate distribution

@@ -1,0 +1,29 @@
+#This file is used to build java classes for ARMv6 distributions before actually running on ARMv6
+#This is needed as compilation fails on ARMv6 for some yet unknown reasons (libraries do not get detected there)
+
+FROM friwidev/jcefdocker:linux-latest AS stage
+
+#Declare build type argument (Release or Debug)
+ARG BUILD_TYPE
+
+#Declare architecture argument (arm64, 386 or amd64)
+ARG TARGETARCH
+
+#Declare git args
+ARG REPO
+ARG REF
+
+WORKDIR /builder
+#Copy existing sources, if any
+COPY jcef /jcef
+
+#Copy and launch run script
+COPY scripts/run_linux_prebuild.sh .
+RUN chmod +x run_linux_prebuild.sh
+RUN ./run_linux_prebuild.sh
+
+#Export built files
+FROM scratch AS export-stage
+COPY --from=stage /jcef/out/linux32 linux32
+
+
