@@ -11,6 +11,11 @@ if [ $# -lt 2 ] || [ $# -eq 3 ]
     exit 1
 fi
 
+cd "$( dirname "$0" )"
+
+#Remove old build output
+rm -rf out
+
 #Execute buildx with linux dockerfile and output to current directory
 if [ $# -eq 2 ]
   then

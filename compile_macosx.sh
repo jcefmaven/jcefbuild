@@ -11,6 +11,8 @@ if [ $# -lt 2 ] || [ $# -eq 3 ]
     exit 1
 fi
 
+cd "$( dirname "$0" )"
+
 TARGETARCH=$1
 BUILD_TYPE=$2
 if [ $# -lt 4 ]

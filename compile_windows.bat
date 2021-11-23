@@ -10,6 +10,8 @@ if ("%2"=="") ( ^
     exit 1 ^ 
 )
 
+cd /D "%~dp0"
+
 ::Determine repository and ref to pull from
 if ("%3"=="") (set "REPO=https://bitbucket.org/chromiumembedded/java-cef.git") ^
 else (set "REPO=%3")
