@@ -65,8 +65,12 @@ fi
 if [ ${TARGETARCH} == 'amd64' ] || [ ${TARGETARCH} == 'arm64' ]; then
     cd ../binary_distrib/linux64
     if [ ${BUILD_TYPE} == 'Release' ]; then (echo "Stripping binary..." && strip bin/lib/linux64/libcef.so) fi
+    #Replace natives on arm64
+    if [ ${TARGETARCH} == 'arm64' ]; then (rm bin/gluegen-rt-natives* && rm bin/jogl-all-natives* && cp /natives/gluegen-rt-natives-linux-aarch64.jar bin && cp /natives/jogl-all-natives-linux-aarch64.jar bin) fi
 else
     cd ../binary_distrib/linux32
     if [ ${BUILD_TYPE} == 'Release' ]; then (echo "Stripping binary..." && strip bin/lib/linux32/libcef.so) fi
+    #Replace natives on armv6
+    if [ ${TARGETARCH} == 'arm/v6' ]; then (rm bin/gluegen-rt-natives* && rm bin/jogl-all-natives* && cp /natives/gluegen-rt-natives-linux-armv6hf.jar bin && cp /natives/jogl-all-natives-linux-armv6hf.jar bin) fi
 fi
 tar -czvf ../../binary_distrib.tar.gz *
