@@ -23,13 +23,13 @@ if [ ! -f "/jcef/README.md" ]; then
     git clone ${REPO} /jcef
     cd /jcef
     git checkout ${REF}
-    #Temporary CMakeLists patching - beautify in the future
-    rm CMakeLists.txt
-    curl -o CMakeLists.txt https://raw.githubusercontent.com/jcefmaven/jcefbuild/master/CMakeLists.txt
 else
     echo "Found existing files to build"
     cd /jcef
 fi
+
+#CMakeLists patching 
+python3 /builder/patch_cmake.py CMakeLists.txt /builder/CMakeLists.txt.patch
 
 # Create and enter the `jcef_build` directory.
 # The `jcef_build` directory name is required by other JCEF tooling

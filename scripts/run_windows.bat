@@ -12,9 +12,8 @@ if exist "jcef\README.md" (echo "Found existing files to build" && cd jcef) ^
 else (echo "Did not find files to build - cloning..." && GOTO :CLONE)
 
 :BUILD
-:: Temporary CMakeLists patching - beautify in the future
-del /f CMakeLists.txt
-curl -o CMakeLists.txt https://raw.githubusercontent.com/jcefmaven/jcefbuild/master/CMakeLists.txt
+:: CMakeLists patching 
+python3 C:/patch_cmake.py CMakeLists.txt C:/CMakeLists.txt.patch
 
 :: Prepare build dir
 mkdir jcef_build && cd jcef_build
