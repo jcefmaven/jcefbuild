@@ -28,7 +28,7 @@ else
     cd /jcef
 fi
 
-#CMakeLists patching 
+#CMakeLists patching
 python3 /builder/patch_cmake.py CMakeLists.txt /builder/CMakeLists.txt.patch
 
 # Create and enter the `jcef_build` directory.
@@ -50,7 +50,8 @@ elif [ ${TARGETARCH} == '386' ]; then
     ./compile.sh linux32
 else
     echo "Can not compile java classes under arm/v6 currently. So we copy from prebuild directory."
-    cp -r /prebuild/* /jcef/out/
+    mkdir -p /jcef/out/linux32
+    cp -r /prebuild/* /jcef/out/linux32/
 fi
 
 #Entering distribution phase - disable error handling (javadoc building fails here nontheless)
