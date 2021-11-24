@@ -43,7 +43,7 @@ if "%TARGETARCH%"=="386" (call make_distrib.bat win32) else (call make_distrib.b
 :: Go to results
 if "%TARGETARCH%"=="386" (cd ../binary_distrib/win32) else (cd ../binary_distrib/win64)
 :: Remove wrong jogamp/gluegen natives from archive
-if "%TARGETARCH%"=="arm64" (del /F /Q "bin/*-amd64.jar")
+if "%TARGETARCH%"=="arm64" (del /F "bin/gluegen-rt-natives-windows-amd64.jar" && del /F "bin/jogl-all-natives-windows-amd64.jar")
 :: Zip results to C:\out
 del /F C:\out\binary_distrib.tar.gz
 if not exist "C:\out" mkdir "C:\out"
