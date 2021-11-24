@@ -20,9 +20,6 @@ if [ ! -f "/jcef/README.md" ]; then
     git clone ${REPO} /jcef
     cd /jcef
     git checkout ${REF}
-    #Temporary CMakeLists patching - beautify in the future
-    rm CMakeLists.txt
-    curl -o CMakeLists.txt https://raw.githubusercontent.com/jcefmaven/jcefbuild/master/CMakeLists.txt
 else
     echo "Found existing files to build"
     cd /jcef
