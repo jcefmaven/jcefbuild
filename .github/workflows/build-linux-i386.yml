@@ -1,4 +1,4 @@
-name: build-windows-arm64
+name: build-linux-i386
 
 on:
   workflow_dispatch:
@@ -13,19 +13,25 @@ on:
         default: 'master'
 
 jobs:
-  build-windows-arm64:
-    runs-on: windows-2019
+  build-linux-i386:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@master
+        with:
+          platforms: all
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
       -
         name: Build
-        shell: cmd
         run: |
-          compile_windows.bat arm64 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
+          chmod +x compile_linux.sh
+          ./compile_linux.sh 386 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
       -
         name: Export artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: windows-arm64.tar.gz
+          name: linux-i386.tar.gz
           path: out/binary_distrib.tar.gz
-

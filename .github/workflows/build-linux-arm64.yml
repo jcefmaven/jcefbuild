@@ -29,4 +29,10 @@ jobs:
         run: |
           chmod +x compile_linux.sh
           ./compile_linux.sh arm64 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
+      -
+        name: Export artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-arm64.tar.gz
+          path: out/binary_distrib.tar.gz
 

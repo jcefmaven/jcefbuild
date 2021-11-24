@@ -29,4 +29,9 @@ jobs:
         run: |
           chmod +x compile_linux.sh
           ./compile_linux.sh arm/v6 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
-
+      -
+        name: Export artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-arm.tar.gz
+          path: out/binary_distrib.tar.gz

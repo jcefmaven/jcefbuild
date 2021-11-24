@@ -1,4 +1,4 @@
-name: build-windows-arm64
+name: build-windows-amd64
 
 on:
   workflow_dispatch:
@@ -13,7 +13,7 @@ on:
         default: 'master'
 
 jobs:
-  build-windows-arm64:
+  build-windows-amd64:
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v1
@@ -21,11 +21,11 @@ jobs:
         name: Build
         shell: cmd
         run: |
-          compile_windows.bat arm64 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
+          compile_windows.bat amd64 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
       -
         name: Export artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: windows-arm64.tar.gz
+          name: windows-amd64.tar.gz
           path: out/binary_distrib.tar.gz
 
