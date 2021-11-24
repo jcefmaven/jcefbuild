@@ -50,8 +50,7 @@ elif [ ${TARGETARCH} == '386' ]; then
     ./compile.sh linux32
 else
     echo "Can not compile java classes under arm/v6 currently. So we copy from prebuild directory."
-    ls /prebuild
-    cp -r /prebuild/linux32 /jcef/out
+    cp -r /prebuild/* /jcef/out/
 fi
 
 #Entering distribution phase - disable error handling (javadoc building fails here nontheless)
