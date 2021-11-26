@@ -7,19 +7,19 @@
 
 ### Build Specs:
 
-|               |Win i386 & amd64   |Win arm64          |Linux i386, amd64, arm & arm64|MacOS amd64 & arm64           |
-|---------------|-------------------|-------------------|------------------------------|------------------------------|
-|**Java**       |Oracle JDK 8       |Microsoft JDK 11   |OpenJDK 11                    |Temurin JDK 8                 |
-|**Compiler**   |VS 2019            |VS 2019            |GCC 10                        |Xcode 12                      |
-|**Build**      |Python 3.7; `ninja`|Python 3.7; `ninja`|Python 3.7; `ninja`           |Python 2.7; `ninja`; SDK 10.11|
-|**Limitations**|-                  |No OSR mode        |-                             |Most likely needs a bundle    |
+|               |Win i386 & amd64   |Win arm64              |Linux i386, amd64, arm & arm64|MacOS amd64 & arm64           |
+|---------------|-------------------|-----------------------|------------------------------|------------------------------|
+|**Java**       |Oracle JDK 8       |Microsoft JDK 11       |OpenJDK 11                    |Temurin JDK 8                 |
+|**Compiler**   |VS 2019            |VS 2019                |GCC 10                        |Xcode 12                      |
+|**Build**      |Python 3.7; `ninja`|Python 3.7; `ninja`    |Python 3.7; `ninja`           |Python 2.7; `ninja`; SDK 10.11|
+|**Limitations**|-                  |No OSR mode (Jogamp)   |-                             |Most likely needs a bundle    |
 
 </div>
 
 ---
 
 ## Downloading artifacts
-You can find the most recent versions of our artifacts on the releases page of this repository.
+You can find the most recent versions of the artifacts on the [releases](../../releases) page of this repository.
 
 ## Reporting bugs
 Please only report bugs here that are related to the build process.
