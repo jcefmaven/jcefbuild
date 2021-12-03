@@ -12,7 +12,7 @@
 |**Java**       |Oracle JDK 8       |Microsoft JDK 11       |OpenJDK 11                    |Temurin JDK 8                 |
 |**Compiler**   |VS 2019            |VS 2019                |GCC 10                        |Xcode 12                      |
 |**Build**      |Python 3.7; `ninja`|Python 3.7; `ninja`    |Python 3.7; `ninja`           |Python 2.7; `ninja`; SDK 10.11|
-|**Limitations**|-                  |No OSR mode (Jogamp)   |-                             |Most likely needs a bundle    |
+|**Limitations**|-                  |No OSR mode (Jogamp)   |-                             |Needs [custom structure](https://bitbucket.org/chromiumembedded/java-cef/issues/109/) to run outside of a bundle|
 
 </div>
 
