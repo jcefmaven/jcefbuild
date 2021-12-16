@@ -27,6 +27,9 @@ for x in f:
 f.close()
 p.close()
 
+#Replace cmake version, as 3.19 is not really needed
+result.replace("3.19", "3.18")
+
 f = open(input, "w")
 f.write(result)
 f.close()
