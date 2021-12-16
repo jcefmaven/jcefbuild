@@ -38,7 +38,8 @@ cef_version=$(grep -o -P '(?<=CEF_VERSION \").*(?=\")' < CMakeLists.txt)
 
 #Build final release information
 #Tag
-release_tag=$(echo "jcef-$commit_id+cef-$cef_version" | awk '{print}' ORS='')
+release_tag=$(echo "1.0.$4" | awk '{print}' ORS='')
+real_release_tag=$(echo "jcef-$commit_id+cef-$cef_version" | awk '{print}' ORS='')
 echo "$release_tag" > ../release_tag.txt #Export for build_meta announcer
 
 echo "release_tag_name=$release_tag" >> $GITHUB_ENV
@@ -84,7 +85,7 @@ mv LICENSE.txt ../LICENSE
   echo "  \"filename_macosx_amd64\": \"macosx-amd64.tar.gz\", "
   echo "  \"filename_macosx_arm64\": \"macosx-arm64.tar.gz\", "
   echo "  \"filename_javadoc\": \"javadoc.tar.gz\", "
-  echo "  \"release_tag\": \"$release_tag\","
+  echo "  \"release_tag\": \"$real_release_tag\","
   echo "  \"release_url\": \"https://github.com/$5/releases/tag/$release_tag\", "
   echo "  \"download_url_linux_amd64\": \"https://github.com/$5/releases/download/$release_tag/linux-amd64.tar.gz\", "
   echo "  \"download_url_linux_i386\": \"https://github.com/$5/releases/download/$release_tag/linux-i386.tar.gz\", "
