@@ -23,7 +23,7 @@ for x in f:
     inpatch = False
   if inpatch == False:
     #Patch minimum cmake version to not break our builds on linux
-    if x.startsWith("cmake_minimum_required"):
+    if x.startswith("cmake_minimum_required"):
       result += "cmake_minimum_required(VERSION 3.18)\n"
     else:
       result += x
