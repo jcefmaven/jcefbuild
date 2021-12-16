@@ -16,21 +16,22 @@ cd "$( dirname "$0" )"
 #Remove old build output
 rm -rf out
 mkdir out
-
-pwd
-ls -a
+mkdir out/linux32
+touch out/linux32/prebuilt.txt
 
 #Execute buildx with linux dockerfile and output to current directory
 if [ $# -eq 2 ]
   then
     if [ $1 == "arm/v6" ]
       then
+        rm -rf out/linux32
         docker buildx build --platform=linux/386 --build-arg TARGETARCH=386 --build-arg BUILD_TYPE=$2 --build-arg REPO=https://bitbucket.org/chromiumembedded/java-cef.git --build-arg REF=master --file DockerfileLinuxARMPrebuild --output out .
     fi
     docker buildx build --platform=linux/$1 --build-arg TARGETARCH=$1 --build-arg BUILD_TYPE=$2 --build-arg REPO=https://bitbucket.org/chromiumembedded/java-cef.git --build-arg REF=master --file DockerfileLinux --output out .
 else
     if [ $1 == "arm/v6" ]
       then
+        rm -rf out/linux32
         docker buildx build --platform=linux/386 --build-arg TARGETARCH=386 --build-arg BUILD_TYPE=$2 --build-arg REPO=$3 --build-arg REF=$4 --file DockerfileLinuxARMPrebuild --output out .
     fi
     docker buildx build --platform=linux/$1 --build-arg TARGETARCH=$1 --build-arg BUILD_TYPE=$2 --build-arg REPO=$3 --build-arg REF=$4 --file DockerfileLinux --output out .

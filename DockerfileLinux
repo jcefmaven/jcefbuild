@@ -14,7 +14,7 @@ WORKDIR /builder
 #Copy existing sources, if any
 COPY jcef /jcef
 #Copy prebuild classes, if any
-COPY out/linux* /prebuild
+COPY out/linux32 /prebuild
 #Copy additional natives
 COPY natives /natives
 
