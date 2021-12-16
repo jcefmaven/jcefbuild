@@ -22,13 +22,14 @@ for x in f:
   elif x.startswith("# Add this project's cmake"):
     inpatch = False
   if inpatch == False:
-    result += x
+    #Patch minimum cmake version to not break our builds on linux
+    if x.startsWith("cmake_minimum_required"):
+      result += "cmake_minimum_required(VERSION 3.18)\n"
+    else
+      result += x
 
 f.close()
 p.close()
-
-#Replace cmake version, as 3.19 is not really needed
-result.replace("3.19", "3.18")
 
 f = open(input, "w")
 f.write(result)

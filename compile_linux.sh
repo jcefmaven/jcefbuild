@@ -17,6 +17,9 @@ cd "$( dirname "$0" )"
 rm -rf out
 mkdir out
 
+pwd
+ls -a
+
 #Execute buildx with linux dockerfile and output to current directory
 if [ $# -eq 2 ]
   then
