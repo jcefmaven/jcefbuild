@@ -1,18 +1,51 @@
 <div id="title" align="center">
 <h1>JCEF BUILD</h1>
-<a href="../../releases/"><img alt="build-all" src="../../actions/workflows/build-all.yml/badge.svg"></img></a>
+<a href="../../releases/latest"><img alt="build-all" src="../../actions/workflows/build-all.yml/badge.svg"></img></a>
 
-<h4>Independent project to produce binary artifacts for the jcef project</h4>
+<h4>Independent project to produce binary artifacts for the JCef project</h4>
 <h6>Visit the JCEF repo at <a href="https://bitbucket.org/chromiumembedded/java-cef/src/master/">bitbucket</a> or <a href="https://github.com/chromiumembedded/java-cef">github</a> </h6>
+
+<h6>Consider using these builds with Maven or Gradle: <a href="https://github.com/jcefmaven/jcefmaven">jcefmaven</a></h6>
 
 ### Build Specs:
 
-|               |Win i386 & amd64   |Win arm64              |Linux i386, amd64, arm & arm64|MacOS amd64 & arm64           |
-|---------------|-------------------|-----------------------|------------------------------|------------------------------|
-|**Java**       |Oracle JDK 8       |Microsoft JDK 11       |OpenJDK 11                    |Temurin JDK 8                 |
-|**Compiler**   |VS 2019            |VS 2019                |GCC 10                        |Xcode 12                      |
-|**Build**      |Python 3.7; `ninja`|Python 3.7; `ninja`    |Python 3.7; `ninja`           |Python 2.7; `ninja`; SDK 10.11|
-|**Limitations**|-                  |No OSR mode (Jogamp)   |-                             |Needs [custom structure](https://bitbucket.org/chromiumembedded/java-cef/issues/109/) to run outside of a bundle|
+<table>
+  <tr>
+    <td width="12%"></td>
+    <td width="22%"><img src="https://simpleicons.org/icons/linux.svg" alt="linux" width="32" height="32"><br/><b>amd64, arm64, i386 & arm</b></td>
+    <td width="22%"><img src="https://simpleicons.org/icons/windows.svg" alt="windows" width="32" height="32"><br/><b>amd64 & i386</b></td>
+    <td width="22%"><img src="https://simpleicons.org/icons/windows.svg" alt="windows" width="32" height="32"><br/><b>arm64</b></td>
+    <td width="22%"><img src="https://simpleicons.org/icons/apple.svg" alt="apple" width="32" height="32"><br/><b>amd64 & arm64</b></td>
+  </tr>
+  <tr>
+    <td><b>Java</b></td>
+    <td>OpenJDK 11</td>
+    <td>Oracle JDK 8</td>
+    <td>Microsoft JDK 11</td>
+    <td>Temurin JDK 8</td>
+  </tr>
+  <tr>
+    <td><b>Compiler</b></td>
+    <td>GCC 10</td>
+    <td>VS 2019</td>
+    <td>VS 2019</td>
+    <td>Xcode 12</td>
+  </tr>
+  <tr>
+    <td><b>Build</b></td>
+    <td>Python 3.7; <code>ninja</code></td>
+    <td>Python 3.7; <code>ninja</code></td>
+    <td>Python 3.7; <code>ninja</code></td>
+    <td>Python 2.7; <code>ninja</code>; SDK10.11</td>
+  </tr>
+  <tr>
+    <td><b>Limitations</b></td>
+    <td>-</td>
+    <td>-</td>
+    <td>No OSR mode (no Jogamp)</td>
+    <td>Needs <a href="https://bitbucket.org/chromiumembedded/java-cef/issues/109/">custom structure</a> to run outside of a bundle</td>
+  </tr>
+</table>
 
 </div>
 
@@ -20,10 +53,6 @@
 
 ## Downloading artifacts
 You can find the most recent versions of the artifacts on the [releases](../../releases) page of this repository.
-
-## Reporting bugs
-Please only report bugs here that are related to the build process.
-Please report bugs in JCEF/CEF to the JCEF repository on Bitbucket.
 
 ## Building your own projects
 You have multiple options to build your own project using this repository. They are listed below.
@@ -43,5 +72,10 @@ Then execute `compile-<os>.<sh|bat> <arch> <buildType> [<gitrepo> <gitref>]`.
 Specify an architecture (docker architectures, see script source for options) and build type (Release or Debug).
 Optionally, you can specify a git repository and ref/branch to pull when no sources are present in the `jcef` folder.
 
+## Reporting bugs
+Please only report bugs here that are related to the build process.
+Please report bugs in JCEF/CEF to the [corresponding repository on Bitbucket](https://bitbucket.org/chromiumembedded/).
+
 ## Contributing
 Feel free to open a pull request on this repository to improve its stability or artifact quality. Make sure to provide a valid GitHub Actions run for your pull requests to be accepted.
+
