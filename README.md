@@ -12,10 +12,10 @@
 <table>
   <tr>
     <td width="12%"></td>
-    <td width="22%"><img src="https://simpleicons.org/icons/linux.svg" alt="linux" width="32" height="32"><br/><b>amd64, arm64, i386 & arm</b></td>
-    <td width="22%"><img src="https://simpleicons.org/icons/windows.svg" alt="windows" width="32" height="32"><br/><b>amd64 & i386</b></td>
-    <td width="22%"><img src="https://simpleicons.org/icons/windows.svg" alt="windows" width="32" height="32"><br/><b>arm64</b></td>
-    <td width="22%"><img src="https://simpleicons.org/icons/apple.svg" alt="apple" width="32" height="32"><br/><b>amd64 & arm64</b></td>
+    <td width="22%"><a href="#"><img src="https://simpleicons.org/icons/linux.svg" alt="linux" width="32" height="32"></a><br/><b>amd64, arm64, i386 & arm</b></td>
+    <td width="22%"><a href="#"><img src="https://simpleicons.org/icons/windows.svg" alt="windows" width="32" height="32"></a><br/><b>amd64 & i386</b></td>
+    <td width="22%"><a href="#"><img src="https://simpleicons.org/icons/windows.svg" alt="windows" width="32" height="32"></a><br/><b>arm64</b></td>
+    <td width="22%"><a href="#"><img src="https://simpleicons.org/icons/apple.svg" alt="apple" width="32" height="32"></a><br/><b>amd64 & arm64</b></td>
   </tr>
   <tr>
     <td><b>Java</b></td>
