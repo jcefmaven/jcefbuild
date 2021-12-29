@@ -19,6 +19,9 @@ mkdir out
 mkdir out/linux32
 touch out/linux32/prebuilt.txt
 
+#Remove binary distribution if there was one built before (saves transfer of it to docker context)
+rm -rf jcef/binary_distrib
+
 #Cache build image to not download it again each time (speedup for local builds)
 docker pull friwidev/jcefdocker:linux-latest
 
@@ -56,6 +59,8 @@ done
 if [ "$downloaded" -eq "1" ]; then
     rm -rf jcef/third_party
     mv out/third_party jcef
+else
+    rm -rf out/third_party
 fi
 
 # Check if the clang download was performed. If so, move it to jcef dir
@@ -67,3 +72,7 @@ fi
 #Move jcef_build
 rm -rf jcef/jcef_build
 mv out/jcef_build jcef/jcef_build
+
+#Move target to binary_distrib
+rm -rf jcef/binary_distrib
+mv out/target jcef/binary_distrib
