@@ -26,7 +26,7 @@ if [ ! -f "/jcef/README.md" ]; then
 else
     echo "Found existing files to build"
     cd /jcef
-fi
+fi  
 
 #CMakeLists patching
 python3 /builder/patch_cmake.py CMakeLists.txt /builder/CMakeLists.txt.patch
@@ -34,7 +34,19 @@ python3 /builder/patch_cmake.py CMakeLists.txt /builder/CMakeLists.txt.patch
 # Create and enter the `jcef_build` directory.
 # The `jcef_build` directory name is required by other JCEF tooling
 # and should not be changed.
-mkdir jcef_build && cd jcef_build
+if [ ! -d "jcef_build" ]; then
+    mkdir jcef_build
+fi
+cd jcef_build
+
+# Check if the download was already performed. If so, we wont send it outside of the container at the end
+export already_downloaded=0
+for f in ../third_party/cef/cef_binary_*; do
+    test -d "$f" || continue
+    #We found a matching dir
+    export already_downloaded=1
+    break
+done
 
 # Linux: Generate 32/64-bit Unix Makefiles.
 cmake -G "Ninja" -DPROJECT_ARCH=${TARGETARCH} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
@@ -77,4 +89,16 @@ else
     #Replace natives on armv6
     if [ ${TARGETARCH} == 'arm/v6' ]; then (rm bin/gluegen-rt-natives* && rm bin/jogl-all-natives* && cp /natives/gluegen-rt-natives-linux-armv6hf.jar bin && cp /natives/jogl-all-natives-linux-armv6hf.jar bin) fi
 fi
+
+#Export binaries
 tar -czvf ../../binary_distrib.tar.gz *
+mkdir ../../target
+mv * ../../target
+
+#Do not export third_party if already exported (it is quite large)
+if [ "$already_downloaded" -eq "1" ]; then
+    rm -rf ../../third_party/*
+fi
+
+#Export clang
+mv ../../tools/buildtools/linux64 ../../buildtools

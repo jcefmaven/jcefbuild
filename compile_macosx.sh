@@ -42,7 +42,10 @@ fi
 # Create and enter the `jcef_build` directory.
 # The `jcef_build` directory name is required by other JCEF tooling
 # and should not be changed.
-mkdir jcef_build && cd jcef_build
+if [ ! -d "jcef_build" ]; then
+    mkdir jcef_build
+fi
+cd jcef_build
 
 # MacOS: Generate amd64/arm64 Makefiles.
 if [ ${TARGETARCH} == 'amd64' ]; then
