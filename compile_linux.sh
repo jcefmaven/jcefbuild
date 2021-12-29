@@ -35,7 +35,7 @@ else
     if [ $1 == "arm/v6" ]
       then
         rm -rf out/linux32
-        docker buildx build --no-cache --progress=plain jcefbuild:latest --platform=linux/386 --build-arg TARGETARCH=386 --build-arg BUILD_TYPE=$2 --build-arg REPO=$3 --build-arg REF=$4 --file DockerfileLinuxARMPrebuild --output out .
+        docker buildx build --no-cache --progress=plain --platform=linux/386 --build-arg TARGETARCH=386 --build-arg BUILD_TYPE=$2 --build-arg REPO=$3 --build-arg REF=$4 --file DockerfileLinuxARMPrebuild --output out .
     fi
     docker buildx build --no-cache --progress=plain --platform=linux/$1 --build-arg TARGETARCH=$1 --build-arg BUILD_TYPE=$2 --build-arg REPO=$3 --build-arg REF=$4 --file DockerfileLinux --output out .
 fi
