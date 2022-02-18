@@ -68,6 +68,7 @@ cd ..
 cd binary_distrib/macosx64
 if [ $# -gt 4 ]
   then
+    chmod +x $WORK_DIR/macosx_codesign.sh
     ./$WORK_DIR/macosx_codesign.sh $(pwd) $5
 fi
 
