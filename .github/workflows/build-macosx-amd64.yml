@@ -22,11 +22,36 @@ jobs:
         run: |
           chmod +x scripts/install_macos_dependencies.sh
           ./scripts/install_macos_dependencies.sh
+      - name: Install Apple certificate
+        env:
+          BUILD_CERTIFICATE_BASE64: ${{ secrets.APPLE_BUILD_CERTIFICATE_BASE64 }}
+          P12_PASSWORD: ${{ secrets.APPLE_P12_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.APPLE_KEYCHAIN_PASSWORD }}
+        run: |
+          # create variables
+          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+          # import certificate from secrets
+          echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode --output $CERTIFICATE_PATH
+
+          # create temporary keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          # import certificate to keychain
+          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
       -
         name: Build
         run: |
           chmod +x compile_macosx.sh
-          ./compile_macosx.sh amd64 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
+          ./compile_macosx.sh amd64 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }} ${{ secrets.APPLE_BUILD_CERTIFICATE_NAME }}
+      - name: Clean up keychain
+        if: ${{ always() }}
+        run: |
+          security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
       -
         name: Export artifacts
         uses: actions/upload-artifact@v2

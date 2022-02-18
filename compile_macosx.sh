@@ -2,16 +2,18 @@
 
 if [ $# -lt 2 ] || [ $# -eq 3 ]
   then
-    echo "Usage: ./compile_macosx.sh <architecture> <buildType> [<gitrepo> <gitref>]"
+    echo "Usage: ./compile_macosx.sh <architecture> <buildType> [<gitrepo> <gitref>] [<certname>]"
     echo ""
     echo "architecture: the target architecture to build for. Architectures are either amd64 or arm64."
     echo "buildType: either Release or Debug"
     echo "gitrepo: git repository url to clone"
     echo "gitref: the git commit id to pull"
+    echo "certname: the apple signing certificate name. Something like \"Developer ID Application: xxx\""
     exit 1
 fi
 
 cd "$( dirname "$0" )"
+WORK_DIR=$(pwd)
 
 TARGETARCH=$1
 BUILD_TYPE=$2
@@ -60,9 +62,16 @@ ninja -j4
 cd ../tools
 chmod +x make_distrib.sh
 ./make_distrib.sh macosx64
+cd ..
+
+#Perform code signing
+cd binary_distrib/macosx64
+if [ $# -gt 4 ]
+  then
+    ./$WORK_DIR/macosx_codesign.sh $(pwd) $5
+fi
 
 #Pack binary_distrib
-cd ../binary_distrib/macosx64
 rm -rf ../../../out
 mkdir ../../../out
 tar -czvf ../../../out/binary_distrib.tar.gz *
