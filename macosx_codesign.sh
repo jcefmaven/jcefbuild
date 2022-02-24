@@ -2,7 +2,7 @@
 
 if [ $# -lt 2 ]
   then
-    echo "Usage: ./macosxcodesign.sh <path> <certname> [<bundleid> <appleid> <applepwd>]"
+    echo "Usage: ./macosxcodesign.sh <path> <certname>"
     echo ""
     echo "path: the absolute(!) target path"
     echo "certname: the apple signing certificate name. Something like \"Developer ID Application: xxx\""
@@ -12,9 +12,9 @@ fi
 #Set workdir local (for plist files)
 cd "$( dirname "$0" )"
 APP_DIR=$1/bin
-APP_NAME=cef_app.app
+APP_NAME=jcef_app.app
 FRAMEWORKS_DIR=Contents/Frameworks
-FRAMEWORK_NAME=Chromium Embedded Framework.framework
+FRAMEWORK_NAME=Chromium\ Embedded\ Framework.framework
 ENTITLEMENTS_HELPER=entitlements/entitlements-helper.plist
 ENTITLEMENTS_BROWSER=entitlements/entitlements-browser.plist
 
