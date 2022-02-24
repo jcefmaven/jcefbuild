@@ -4,7 +4,7 @@ if [ $# -lt 2 ]
   then
     echo "Usage: ./macosxcodesign.sh <path> <certname> [<bundleid> <appleid> <applepwd>]"
     echo ""
-    echo "path: the target path"
+    echo "path: the absolute(!) target path"
     echo "certname: the apple signing certificate name. Something like \"Developer ID Application: xxx\""
     exit 1
 fi
