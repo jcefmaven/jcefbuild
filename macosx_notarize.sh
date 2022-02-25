@@ -25,16 +25,15 @@ ZIP_PATH=$1.zip
 
 cd $APP_DIR
 echo "Creating zip"
-zip -r $APP_NAME.zip $APP_NAME
+zip -r "$APP_NAME.zip" "$APP_NAME"
 
 echo "Uploading $ZIP_PATH for notarization"
-requestUUID=$(xcrun altool --notarize-app \
+xcrun altool --notarize-app \
                            --primary-bundle-id "$4" \
                            --username "$5" \
                            --password "$6" \
                            --asc-provider "$3" \
-                           --file "$1.zip" 2>&1 \
-                  | awk '/RequestUUID/ { print $NF; }')
+                           --file "$1.zip"
                                
 echo "Notarization RequestUUID: $requestUUID"
 
