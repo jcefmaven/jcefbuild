@@ -47,7 +47,7 @@ jobs:
         name: Build
         run: |
           chmod +x compile_macosx.sh
-          ./compile_macosx.sh amd64 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }} "${{ secrets.APPLE_BUILD_CERTIFICATE_NAME }}" "${{ secrets.APPLE_TEAM_NAME }}" "${{ secrets.APPLE_ID }}" "${{ secrets.APPLE_PASSWORD }}"
+          ./compile_macosx.sh amd64 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }} "${{ secrets.APPLE_BUILD_CERTIFICATE_NAME }}" ${{ secrets.APPLE_TEAM_NAME }} ${{ secrets.APPLE_ID }} ${{ secrets.APPLE_PASSWORD }}
       - name: Clean up keychain
         if: ${{ always() }}
         run: |

@@ -69,6 +69,6 @@ fi
 xcrun stapler staple "$1"
 
 # clean up
-rm -f $APP_NAME.zip
+rm -f "$APP_NAME.zip"
 
 echo "##########################################################"
