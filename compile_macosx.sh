@@ -2,13 +2,16 @@
 
 if [ $# -lt 2 ] || [ $# -eq 3 ]
   then
-    echo "Usage: ./compile_macosx.sh <architecture> <buildType> [<gitrepo> <gitref>] [<certname>]"
+    echo "Usage: ./compile_macosx.sh <architecture> <buildType> [<gitrepo> <gitref>] [<certname> <teamname> <appleid> <applepwd>]"
     echo ""
     echo "architecture: the target architecture to build for. Architectures are either amd64 or arm64."
     echo "buildType: either Release or Debug"
     echo "gitrepo: git repository url to clone"
     echo "gitref: the git commit id to pull"
-    echo "certname: the apple signing certificate name. Something like \"Developer ID Application: xxx\""
+    echo "certname: the apple signing certificate name. Something like \"Developer ID Application: xxx (yyy)\""
+    echo "teamname: the apple team name. 10-digit id yyy from the cert name."
+    echo "appleid: your apple developer id"
+    echo "applepwd: your apple developer id password"
     exit 1
 fi
 
@@ -69,7 +72,7 @@ cd binary_distrib/macosx64
 if [ $# -gt 4 ]
   then
     chmod +x $WORK_DIR/macosx_codesign.sh
-    bash $WORK_DIR/macosx_codesign.sh $(pwd) $5
+    bash $WORK_DIR/macosx_codesign.sh $(pwd) $5 $6 $7 $8
 fi
 
 #Pack binary_distrib
