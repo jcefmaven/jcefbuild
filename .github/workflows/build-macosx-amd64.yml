@@ -47,8 +47,8 @@ jobs:
           security list-keychain -d user -s $KEYCHAIN_PATH
           
           # import api key from secrets
-          mkdir ~/private_keys
-          echo -n "$APPLE_API_KEY_BASE64" | base64 --decode --output "~/private_keys/AuthKey_$APPLE_API_KEY_NAME.p8"
+          mkdir "${HOME}/private_keys"
+          echo -n "$APPLE_API_KEY_BASE64" | base64 --decode --output "${HOME}/private_keys/AuthKey_$APPLE_API_KEY_NAME.p8"
       -
         name: Build
         run: |
@@ -58,6 +58,7 @@ jobs:
         if: ${{ always() }}
         run: |
           security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
+          rm -rf "${HOME}/private_keys"
       -
         name: Export artifacts
         uses: actions/upload-artifact@v2
