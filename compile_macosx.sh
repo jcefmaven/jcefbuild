@@ -72,7 +72,7 @@ cd binary_distrib/macosx64
 if [ $# -gt 4 ]
   then
     chmod +x $WORK_DIR/macosx_codesign.sh
-    bash $WORK_DIR/macosx_codesign.sh $(pwd) $5 $6 $7 $8
+    bash $WORK_DIR/macosx_codesign.sh $(pwd) "$5" $6 $7 $8
 fi
 
 #Pack binary_distrib
