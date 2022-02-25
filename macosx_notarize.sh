@@ -36,8 +36,11 @@ requestUUID=$(xcrun altool --notarize-app \
                            --file "$1.zip" 2>&1 \
                   | awk '/RequestUUID/ { print $NF; }')
 #                          --asc-provider "$3" \
-                               
+
 echo "Notarization RequestUUID: $requestUUID"
+
+# clean up zip
+rm -f "$APP_NAME.zip"
 
 if [[ $requestUUID == "" ]]; then 
         echo "Could not upload for notarization"
@@ -48,7 +51,7 @@ fi
 request_status="in progress"
 while [[ "$request_status" == "in progress" ]]; do
     echo -n "waiting... "
-    sleep 10
+    sleep 60
     request_status=$(xcrun altool --notarization-info "$requestUUID" \
                               --apiKey "$5" \
                               --apiIssuer "$6" 2>&1 \
@@ -69,8 +72,5 @@ fi
 
 # staple
 xcrun stapler staple "$1"
-
-# clean up
-rm -f "$APP_NAME.zip"
 
 echo "##########################################################"
