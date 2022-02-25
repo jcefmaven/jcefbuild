@@ -5,14 +5,14 @@
 
 if [ $# -lt 6 ]
   then
-    echo "Usage: ./macosx_notarize.sh <path> <certname> <teamname> <bundleid> <appleid> <applepwd>"
+    echo "Usage: ./macosx_notarize.sh <path> <certname> <teamname> <bundleid> <applekeyid> <applekeyissuer>"
     echo ""
     echo "path: the absolute(!) target path"
     echo "certname: the apple signing certificate name. Something like \"Developer ID Application: xxx (yyy)\""
     echo "teamname: the apple team name. 10-digit id yyy from the cert name."
     echo "bundleid: the bundle id of the artifact"
-    echo "appleid: your apple developer id"
-    echo "applepwd: your apple developer id password"
+    echo "applekeyid: your apple api key id"
+    echo "applekeyissuer: uuid of your apple api key issuer"
     exit 1
 fi
 
@@ -29,9 +29,10 @@ zip -r "$APP_NAME.zip" "$APP_NAME"
 
 echo "Uploading $ZIP_PATH for notarization"
 xcrun altool --notarize-app \
+                           --type macos \
                            --primary-bundle-id "$4" \
-                           --username "$5" \
-                           --password "$6" \
+                           --apiKey "$5" \
+                           --apiIssuer "$6" \
                            --asc-provider "$3" \
                            --file "$1.zip"
                                
@@ -48,16 +49,16 @@ while [[ "$request_status" == "in progress" ]]; do
     echo -n "waiting... "
     sleep 10
     request_status=$(xcrun altool --notarization-info "$requestUUID" \
-                              --username "$5" \
-                              --password "$6" 2>&1 \
+                              --apiKey "$5" \
+                              --apiIssuer "$6" 2>&1 \
                  | awk -F ': ' '/Status:/ { print $2; }' )
     echo "$request_status"
 done
 
 # print status information
 xcrun altool --notarization-info "$requestUUID" \
-             --username "$5" \
-             --password "$6"
+             --apiKey "$5" \
+             --apiIssuer "$6"
 echo
 
 if [[ $request_status != "success" ]]; then

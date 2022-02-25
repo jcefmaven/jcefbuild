@@ -2,13 +2,13 @@
 
 if [ $# -lt 5 ]
   then
-    echo "Usage: ./macosx_codesign.sh <path> <certname> <teamname> <appleid> <applepwd>"
+    echo "Usage: ./macosx_codesign.sh <path> <certname> <teamname> <applekeyid> <applekeyissuer>"
     echo ""
     echo "path: the absolute(!) target path"
     echo "certname: the apple signing certificate name. Something like \"Developer ID Application: xxx (yyy)\""
     echo "teamname: the apple team name. 10-digit id yyy from the cert name."
-    echo "appleid: your apple developer id"
-    echo "applepwd: your apple developer id password"
+    echo "applekeyid: your apple api key id"
+    echo "applekeyissuer: uuid of your apple api key issuer"
     exit 1
 fi
 
@@ -28,6 +28,7 @@ chmod +x macosx_notarize.sh
 echo "Signing helpers..."
 codesign --force --options runtime --entitlements "$ENTITLEMENTS_HELPER" --sign "$2" --timestamp --verbose "$APP_DIR/$APP_NAME/$FRAMEWORKS_DIR/jcef Helper.app"
 bash macosx_notarize.sh "$APP_DIR/$APP_NAME/$FRAMEWORKS_DIR/jcef Helper.app" $2 $3 org.jcef.jcef.helper $4 $5
+exit 1
 codesign --force --options runtime --entitlements "$ENTITLEMENTS_HELPER" --sign "$2" --timestamp --verbose "$APP_DIR/$APP_NAME/$FRAMEWORKS_DIR/jcef Helper (GPU).app"
 bash macosx_notarize.sh "$APP_DIR/$APP_NAME/$FRAMEWORKS_DIR/jcef Helper (GPU).app" $2 $3 org.jcef.jcef.helper.gpu $4 $5
 codesign --force --options runtime --entitlements "$ENTITLEMENTS_HELPER" --sign "$2" --timestamp --verbose "$APP_DIR/$APP_NAME/$FRAMEWORKS_DIR/jcef Helper (Plugin).app"

@@ -2,7 +2,7 @@
 
 if [ $# -lt 2 ] || [ $# -eq 3 ]
   then
-    echo "Usage: ./compile_macosx.sh <architecture> <buildType> [<gitrepo> <gitref>] [<certname> <teamname> <appleid> <applepwd>]"
+    echo "Usage: ./compile_macosx.sh <architecture> <buildType> [<gitrepo> <gitref>] [<certname> <teamname> <applekeyid> <applekeyissuer>]"
     echo ""
     echo "architecture: the target architecture to build for. Architectures are either amd64 or arm64."
     echo "buildType: either Release or Debug"
@@ -10,8 +10,8 @@ if [ $# -lt 2 ] || [ $# -eq 3 ]
     echo "gitref: the git commit id to pull"
     echo "certname: the apple signing certificate name. Something like \"Developer ID Application: xxx (yyy)\""
     echo "teamname: the apple team name. 10-digit id yyy from the cert name."
-    echo "appleid: your apple developer id"
-    echo "applepwd: your apple developer id password"
+    echo "applekeyid: your apple api key id"
+    echo "applekeyissuer: uuid of your apple api key issuer"
     exit 1
 fi
 
