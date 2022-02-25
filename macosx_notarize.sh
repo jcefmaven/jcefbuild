@@ -33,8 +33,8 @@ xcrun altool --notarize-app \
                            --primary-bundle-id "$4" \
                            --apiKey "$5" \
                            --apiIssuer "$6" \
-                           --asc-provider "$3" \
                            --file "$1.zip"
+#                          --asc-provider "$3" \
                                
 echo "Notarization RequestUUID: $requestUUID"
 
