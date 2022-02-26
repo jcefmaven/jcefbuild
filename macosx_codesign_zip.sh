@@ -16,8 +16,8 @@ ENTITLEMENTS_BROWSER=entitlements/entitlements-browser.plist
 
 mkdir tmp
 unzip "$1" "$2" -d tmp
+codesign --force --options runtime --entitlements "$ENTITLEMENTS_BROWSER" --sign "$3" --timestamp --verbose "tmp/$2"
 cd tmp
-codesign --force --options runtime --entitlements "$ENTITLEMENTS_BROWSER" --sign "$3" --timestamp --verbose "$2"
 zip --update "$1" "$2"
 cd ..
 rm -rf tmp
