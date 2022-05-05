@@ -61,11 +61,23 @@ You have multiple options to build your own project using this repository. They 
 To build another git repo, simply fork this repository. Then go to the "Actions" tab of your forked repository,
 activate the workflows and manually run the `build-all` (or `build-<platform>`) workflow with your repository and commit id/branch specified.
 This will trigger a build of your desired repository and platforms.
+To produce a build for MacOS, you will need to specify your code signing information or remove the signing and notarization steps from the action workflows.
+
+Required Actions Secrets for signing and notarization:
+
++`APPLE_API_KEY_BASE64`: Your API key to access the Apple Notarization Service (in base64)
++`APPLE_API_KEY_ISSUER`: UUID of issuer (can be found along with your generated key in Apple Dev Console)
++`APPLE_API_KEY_NAME`: The name to be used for your API key on the runner (can be random)
++`APPLE_BUILD_CERTIFICATE_BASE64`: Base64 encoded pkcs12 certificate file from Apple to use for signing
++`APPLE_BUILD_CERTIFICATE_NAME`: Your certificate name (usually starts with `Developer ID Application`)
++`APPLE_P12_PASSWORD`: Password of your pkcs12 certificate file
++`APPLE_KEYCHAIN_PASSWORD`: A random password to use for the keychain on the runner
++`APPLE_TEAM_NAME`: Your apple team name, part of the certificate name (10 digit id in brackets)`
+
 
 ### Building locally
 To build locally, put your sources in the `jcef` directory of this repository, or leave it empty to clone a repository.
-On Windows and Linux, make sure you installed docker (NOT the Snap version!).
-On MacOS, make sure you installed the build dependencies specified
+On Windows and Linux, make sure you installed docker (NOT the Snap version!). On MacOS, make sure you installed the build dependencies specified
 [here](https://bitbucket.org/chromiumembedded/java-cef/wiki/BranchesAndBuilding) and `ninja`.
 
 Then execute `compile-<os>.<sh|bat> <arch> <buildType> [<gitrepo> <gitref>]`.
