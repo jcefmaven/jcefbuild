@@ -59,7 +59,8 @@ chmod +x compile.sh
 if [ ${TARGETARCH} == 'amd64' ] || [ ${TARGETARCH} == 'arm64' ]; then
     ./compile.sh linux64
 elif [ ${TARGETARCH} == '386' ]; then
-    ./compile.sh linux32
+    echo "386 is no longer supported since chromium 104"
+    exit 1
 else
     echo "Can not compile java classes under arm/v6 currently. So we copy from prebuild directory."
     mkdir -p /jcef/out/linux32
