@@ -32,7 +32,7 @@ echo "Uploading $ZIP_PATH for notarization and waiting for result"
 xcrun notarytool submit "$1.zip" \
                  --key $6 \
                  --key-id $5 \
-                 --key-issuer $7 \
+                 --issuer $7 \
                  --wait
 
 # staple
