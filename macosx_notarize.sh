@@ -34,20 +34,20 @@ xcrun notarytool submit "$1.zip" \
                  --key-id $5 \
                  --issuer $7 \
                  --wait 2>&1 | tee notary_output.txt
-
+rm -r "$APP_NAME.zip"
 requestUUID=$(cat notary_output.txt | awk '/id:/ { print $NF; exit; }')
 
 echo "Notarization log:"
-rm -f notarization.log
 xcrun notarytool log $requestUUID \
                  --key $6 \
                  --key-id $5 \
                  --issuer $7 \
                  notarization.log
 cat notarization.log
+rm -f notarization.log
 echo ""
 
 # staple
-xcrun stapler staple "$1"
+xcrun stapler -v staple "$1"
 
 echo "##########################################################"
