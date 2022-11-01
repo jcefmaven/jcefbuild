@@ -29,14 +29,14 @@
     <td>GCC 10</td>
     <td>VS 2019</td>
     <td>VS 2019</td>
-    <td>Xcode 12</td>
+    <td>Xcode 13</td>
   </tr>
   <tr>
     <td><b>Build</b></td>
     <td>Python 3.7; <code>ninja</code></td>
     <td>Python 3.7; <code>ninja</code></td>
     <td>Python 3.7; <code>ninja</code></td>
-    <td>Python 2.7; <code>ninja</code>; SDK10.11</td>
+    <td>Python 2.7; <code>ninja</code>; SDK10.13</td>
   </tr>
   <tr>
     <td><b>Limitations</b></td>
@@ -68,11 +68,14 @@ Required Actions Secrets for signing and notarization:
 +`APPLE_API_KEY_BASE64`: Your API key to access the Apple Notarization Service (in base64)
 +`APPLE_API_KEY_ISSUER`: UUID of issuer (can be found along with your generated key in Apple Dev Console)
 +`APPLE_API_KEY_NAME`: The name to be used for your API key on the runner (can be random)
++`APPLE_API_KEY_ID`: The ID of your key (10 digit code)
 +`APPLE_BUILD_CERTIFICATE_BASE64`: Base64 encoded pkcs12 certificate file from Apple to use for signing
 +`APPLE_BUILD_CERTIFICATE_NAME`: Your certificate name (usually starts with `Developer ID Application`)
 +`APPLE_P12_PASSWORD`: Password of your pkcs12 certificate file
 +`APPLE_KEYCHAIN_PASSWORD`: A random password to use for the keychain on the runner
 +`APPLE_TEAM_NAME`: Your apple team name, part of the certificate name (10 digit id in brackets)`
+
+You can obtain the api key [here](https://appstoreconnect.apple.com/access/api) (make sure key has developer access) and the certificate [here](https://developer.apple.com/account/resources/certificates/list) (choose Developer ID Application).
 
 
 ### Building locally
