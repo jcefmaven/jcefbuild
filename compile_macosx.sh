@@ -43,6 +43,9 @@ else
     echo "Found existing files to build"
     cd jcef
 fi
+if [ ! -d "out" ]; then
+    mkdir out
+fi
 if [ ! -d "out/docs" ]; then
     mkdir out/docs
 fi
