@@ -16,7 +16,7 @@ jobs:
   build-windows-i386:
     runs-on: windows-2019
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       -
         name: Build
         shell: cmd
@@ -24,7 +24,7 @@ jobs:
           compile_windows.bat 386 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
       -
         name: Export artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: windows-i386.tar.gz
           path: out/binary_distrib.tar.gz

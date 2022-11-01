@@ -16,14 +16,14 @@ jobs:
   build-linux-amd64:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - name: Set up QEMU
         uses: docker/setup-qemu-action@master
         with:
           platforms: all
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
       -
         name: Build
         run: |
@@ -31,7 +31,7 @@ jobs:
           ./compile_linux.sh amd64 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
       -
         name: Export artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: linux-amd64.tar.gz
           path: out/binary_distrib.tar.gz
