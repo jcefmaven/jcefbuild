@@ -49,6 +49,6 @@ rm -f notarization.log
 echo ""
 
 # staple
-xcrun stapler -v staple "$1"
+xcrun stapler staple -v "$1"
 
 echo "##########################################################"
