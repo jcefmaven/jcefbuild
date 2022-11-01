@@ -14,7 +14,7 @@ on:
 
 jobs:
   build-macosx-arm64:
-    runs-on: macos-10.15
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
       -
@@ -22,6 +22,11 @@ jobs:
         run: |
           chmod +x scripts/install_macos_dependencies.sh
           ./scripts/install_macos_dependencies.sh
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
       - name: Install Apple certificate
         env:
           BUILD_CERTIFICATE_BASE64: ${{ secrets.APPLE_BUILD_CERTIFICATE_BASE64 }}
