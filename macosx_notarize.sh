@@ -66,7 +66,7 @@ xcrun altool --notarization-info "$requestUUID" \
 echo
 
 if [[ $request_status != "success" ]]; then
-    echo "Could not notarize!"
+    echo "Could not notarize! ($request_status)"
     exit 1
 fi
 
