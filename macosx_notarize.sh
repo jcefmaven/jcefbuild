@@ -45,6 +45,7 @@ xcrun notarytool log $requestUUID \
                  --issuer $7 \
                  notarization.log
 cat notarization.log
+echo ""
 
 # staple
 xcrun stapler staple "$1"
