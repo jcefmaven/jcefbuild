@@ -34,8 +34,9 @@ xcrun notarytool submit "$1.zip" \
                  --key-id $5 \
                  --issuer $7 \
                  --wait 2>&1 | tee notary_output.txt
-rm -r "$APP_NAME.zip"
+rm "$APP_NAME.zip"
 requestUUID=$(cat notary_output.txt | awk '/id:/ { print $NF; exit; }')
+rm notary_output.txt
 
 echo "Notarization log:"
 xcrun notarytool log $requestUUID \
