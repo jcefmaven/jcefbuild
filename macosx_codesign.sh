@@ -54,4 +54,7 @@ bash macosx_codesign_zip.sh "$APP_DIR/$APP_NAME/Contents/Java/jogl-all-natives-m
 codesign --force --options runtime --entitlements "$ENTITLEMENTS_BROWSER" --sign "$2" --timestamp --verbose "$APP_DIR/$APP_NAME"
 bash macosx_notarize.sh "$APP_DIR/$APP_NAME" "$2" $3 org.jcef.jcef $4 $5 $6
 
+echo "Checking notarization validity"
+spctl -vvv --assess --type exec "$APP_DIR/$APP_NAME"
+
 echo "Done signing binaries"

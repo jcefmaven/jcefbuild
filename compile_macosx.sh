@@ -44,12 +44,6 @@ else
     echo "Found existing files to build"
     cd jcef
 fi
-if [ ! -d "out" ]; then
-    mkdir out
-fi
-if [ ! -d "out/docs" ]; then
-    mkdir out/docs
-fi
 
 # Create and enter the `jcef_build` directory.
 # The `jcef_build` directory name is required by other JCEF tooling
