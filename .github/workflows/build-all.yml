@@ -67,7 +67,7 @@ jobs:
       - name: Export distribution
         run: |
           mv out/binary_distrib.tar.gz out/linux-amd64.tar.gz
-          gh release upload ${{needs.create_release.outputs.release_tag_name}} out/linux-amd64.tar.gz
+          gh release upload ${{needs.create-release.outputs.release_tag_name}} out/linux-amd64.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -92,7 +92,7 @@ jobs:
       - name: Export distribution
         run: |
           mv out/binary_distrib.tar.gz out/linux-arm64.tar.gz
-          gh release upload ${{needs.create_release.outputs.release_tag_name}} out/linux-arm64.tar.gz
+          gh release upload ${{needs.create-release.outputs.release_tag_name}} out/linux-arm64.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
@@ -117,7 +117,7 @@ jobs:
       - name: Export distribution
         run: |
           mv out/binary_distrib.tar.gz out/linux-arm.tar.gz
-          gh release upload ${{needs.create_release.outputs.release_tag_name}} out/linux-arm.tar.gz
+          gh release upload ${{needs.create-release.outputs.release_tag_name}} out/linux-arm.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -135,7 +135,7 @@ jobs:
       - name: Export distribution
         run: |
           move out/binary_distrib.tar.gz out/windows-amd64.tar.gz
-          gh release upload ${{needs.create_release.outputs.release_tag_name}} out/windows-amd64.tar.gz
+          gh release upload ${{needs.create-release.outputs.release_tag_name}} out/windows-amd64.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -153,7 +153,7 @@ jobs:
       - name: Export distribution
         run: |
           move out/binary_distrib.tar.gz out/windows-i386.tar.gz
-          gh release upload ${{needs.create_release.outputs.release_tag_name}} out/windows-i386.tar.gz
+          gh release upload ${{needs.create-release.outputs.release_tag_name}} out/windows-i386.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
@@ -171,7 +171,7 @@ jobs:
       - name: Export distribution
         run: |
           move out/binary_distrib.tar.gz out/windows-arm64.tar.gz
-          gh release upload ${{needs.create_release.outputs.release_tag_name}} out/windows-arm64.tar.gz
+          gh release upload ${{needs.create-release.outputs.release_tag_name}} out/windows-arm64.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -231,12 +231,12 @@ jobs:
       - name: Export distribution
         run: |
           mv out/binary_distrib.tar.gz out/macosx-amd64.tar.gz
-          gh release upload ${{needs.create_release.outputs.release_tag_name}} out/macosx-amd64.tar.gz
+          gh release upload ${{needs.create-release.outputs.release_tag_name}} out/macosx-amd64.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Export javadoc
         run: |
-          gh release upload ${{needs.create_release.outputs.release_tag_name}} out/javadoc.tar.gz
+          gh release upload ${{needs.create-release.outputs.release_tag_name}} out/javadoc.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -296,7 +296,7 @@ jobs:
       - name: Export distribution
         run: |
           mv out/binary_distrib.tar.gz out/macosx-arm64.tar.gz
-          gh release upload ${{needs.create_release.outputs.release_tag_name}} out/macosx-arm64.tar.gz
+          gh release upload ${{needs.create-release.outputs.release_tag_name}} out/macosx-arm64.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
