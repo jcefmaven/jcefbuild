@@ -64,7 +64,7 @@ ninja -j4
 
 #Generate distribution
 cd ../tools
-sed -i 's/--ignore-source-errors//g' make_docs.sh
+sed -i "" 's/--ignore-source-errors//g' make_docs.sh
 chmod +x make_distrib.sh
 ./make_distrib.sh macosx64
 cd ..
