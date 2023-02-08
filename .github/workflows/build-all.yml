@@ -15,6 +15,8 @@ on:
 jobs:
   create-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     outputs:
       release_tag_name: ${{ env.release_tag_name }}
       build_meta: ${{ env.build_meta }}
@@ -50,6 +52,8 @@ jobs:
   build-linux-amd64:
     runs-on: ubuntu-latest
     needs: create-release
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
       - name: Set up QEMU
@@ -75,6 +79,8 @@ jobs:
   build-linux-arm64:
     runs-on: ubuntu-latest
     needs: create-release
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
       - name: Set up QEMU
@@ -100,6 +106,8 @@ jobs:
   build-linux-arm:
     runs-on: ubuntu-latest
     needs: create-release
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
       - name: Set up QEMU
@@ -125,6 +133,8 @@ jobs:
   build-windows-amd64:
     runs-on: windows-2019
     needs: create-release
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
       -
@@ -143,6 +153,8 @@ jobs:
   build-windows-i386:
     runs-on: windows-2019
     needs: create-release
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
       -
@@ -161,6 +173,8 @@ jobs:
   build-windows-arm64:
     runs-on: windows-2019
     needs: create-release
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
       -
@@ -179,6 +193,8 @@ jobs:
   build-macosx-amd64:
     runs-on: macos-12
     needs: create-release
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
       -
@@ -244,6 +260,8 @@ jobs:
   build-macosx-arm64:
     runs-on: macos-12
     needs: create-release
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
       -
