@@ -6,11 +6,11 @@ on:
       repo:
         description: 'Git repository to clone'
         required: true
-        default: 'https://bitbucket.org/chromiumembedded/java-cef.git'
+        default: 'https://github.com/Melchior01/java-cef.git'
       ref:
         description: 'Git commit id to checkout'
         required: true
-        default: 'master'
+        default: 'old'
 
 jobs:
   create-release:
