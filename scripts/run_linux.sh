@@ -26,10 +26,7 @@ if [ ! -f "/jcef/README.md" ]; then
 else
     echo "Found existing files to build"
     cd /jcef
-fi  
-
-#CMakeLists patching
-python3 /builder/patch_cmake.py CMakeLists.txt /builder/CMakeLists.txt.patch
+fi
 
 # Create and enter the `jcef_build` directory.
 # The `jcef_build` directory name is required by other JCEF tooling
