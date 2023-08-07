@@ -19,7 +19,7 @@
   </tr>
   <tr>
     <td><b>Java</b></td>
-    <td>OpenJDK 11</td>
+    <td>OpenJDK 17</td>
     <td>Oracle JDK 8</td>
     <td>Microsoft JDK 11</td>
     <td>Temurin JDK 8</td>
@@ -27,8 +27,8 @@
   <tr>
     <td><b>Compiler</b></td>
     <td>GCC 10</td>
-    <td>VS 2019</td>
-    <td>VS 2019</td>
+    <td>VS 2022</td>
+    <td>VS 2022</td>
     <td>Xcode 13</td>
   </tr>
   <tr>
