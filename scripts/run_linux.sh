@@ -31,6 +31,7 @@ fi
 #CMake patching
 python3 /builder/patch_cmake.py cmake/DownloadCEF.cmake
 python3 /builder/patch_cmake.py CMakeLists.txt
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-*"
 
 # Create and enter the `jcef_build` directory.
 # The `jcef_build` directory name is required by other JCEF tooling
