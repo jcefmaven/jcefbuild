@@ -19,6 +19,9 @@ WORKDIR /builder
 #Copy existing sources, if any
 COPY jcef /jcef
 
+#Copy cmake patching script
+COPY scripts/patch_cmake.py .
+
 #Copy and launch run script
 COPY scripts/run_linux_prebuild.sh .
 RUN chmod +x run_linux_prebuild.sh
