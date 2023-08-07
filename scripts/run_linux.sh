@@ -30,6 +30,7 @@ fi
 
 #CMake patching
 python3 /builder/patch_cmake.py cmake/DownloadCEF.cmake
+python3 /builder/patch_cmake.py CMakeLists.txt
 
 # Create and enter the `jcef_build` directory.
 # The `jcef_build` directory name is required by other JCEF tooling

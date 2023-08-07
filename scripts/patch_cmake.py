@@ -5,15 +5,17 @@ import sys
 
 input = sys.argv[1]
 
-print("Patching "+input+" to use spotify for downloads again...")
+print("Patching "+input+"...")
 
 f = open(input, "r")
 result = ""
 for x in f:
   result += x.replace("https://cache-redirector.jetbrains.com/intellij-jbr/", "https://cef-builds.spotifycdn.com/") \
-             .replace("_minimal", "") \
-             .replace(".zip", ".tar.bz2") \
-             .replace(".checksum", ".sha1")
+      .replace("_minimal", "") \
+      .replace(".zip", ".tar.bz2") \
+      .replace(".checksum", ".sha1") \
+      .replace("SHA256", "SHA1") \
+      .replace("x86_64", "amd64")
 
 f.close()
 
