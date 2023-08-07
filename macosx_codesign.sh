@@ -36,6 +36,8 @@ codesign --force --options runtime --entitlements "$ENTITLEMENTS_HELPER" --sign 
 bash macosx_notarize.sh "$APP_DIR/$APP_NAME/$FRAMEWORKS_DIR/jcef Helper (Plugin).app" "$2" $3 org.jcef.jcef.helper.plugin $4 $5 $6
 codesign --force --options runtime --entitlements "$ENTITLEMENTS_HELPER" --sign "$2" --timestamp --verbose "$APP_DIR/$APP_NAME/$FRAMEWORKS_DIR/jcef Helper (Renderer).app"
 bash macosx_notarize.sh "$APP_DIR/$APP_NAME/$FRAMEWORKS_DIR/jcef Helper (Renderer).app" "$2" $3 org.jcef.jcef.helper.renderer $4 $5 $6
+codesign --force --options runtime --entitlements "$ENTITLEMENTS_HELPER" --sign "$2" --timestamp --verbose "$APP_DIR/$APP_NAME/$FRAMEWORKS_DIR/jcef Helper (Alerts).app"
+bash macosx_notarize.sh "$APP_DIR/$APP_NAME/$FRAMEWORKS_DIR/jcef Helper (Alerts).app" "$2" $3 org.jcef.jcef.helper.alerts $4 $5 $6
 
 #Sign libraries and framework
 echo "Signing libraries and framework..."
@@ -51,6 +53,7 @@ bash macosx_codesign_zip.sh "$APP_DIR/$APP_NAME/Contents/Java/jogl-all-natives-m
 bash macosx_codesign_zip.sh "$APP_DIR/$APP_NAME/Contents/Java/jogl-all-natives-macosx-universal.jar" "natives/macosx-universal/libjogl_mobile.dylib" "$2"
 bash macosx_codesign_zip.sh "$APP_DIR/$APP_NAME/Contents/Java/jogl-all-natives-macosx-universal.jar" "natives/macosx-universal/libnewt_head.dylib" "$2"
 bash macosx_codesign_zip.sh "$APP_DIR/$APP_NAME/Contents/Java/jogl-all-natives-macosx-universal.jar" "natives/macosx-universal/libjogl_desktop.dylib" "$2"
+codesign --force --options runtime --entitlements "$ENTITLEMENTS_BROWSER" --sign "$2" --timestamp --verbose "$APP_DIR/$APP_NAME/Contents/MacOS/JavaAppLauncher"
 codesign --force --options runtime --entitlements "$ENTITLEMENTS_BROWSER" --sign "$2" --timestamp --verbose "$APP_DIR/$APP_NAME"
 bash macosx_notarize.sh "$APP_DIR/$APP_NAME" "$2" $3 org.jcef.jcef $4 $5 $6
 
