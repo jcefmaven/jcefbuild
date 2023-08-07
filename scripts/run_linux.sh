@@ -9,7 +9,8 @@ if [ ${TARGETARCH} == 'arm/v6' ]; then
     export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-armel
 fi
 
-export JAVA_HOME=/usr/lib/jvm/openjdk-17/
+export PATH=$PATH:/usr/lib/jvm/openjdk-17/bin
+export JAVA_HOME=/usr/lib/jvm/openjdk-17
 
 # Print some debug info
 echo "-------------------------------------"
