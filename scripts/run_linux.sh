@@ -50,7 +50,8 @@ for f in ../third_party/cef/cef_binary_*; do
 done
 
 # Linux: Generate 32/64-bit Unix Makefiles.
-JAVA_HOME="/usr/lib/jvm/java-17-openjdk*" cmake -G "Ninja" -DPROJECT_ARCH=${TARGETARCH} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
+ls /usr/lib/jvm
+JAVA_HOME="/usr/lib/jvm/java-17-openjdk/" cmake -G "Ninja" -DPROJECT_ARCH=${TARGETARCH} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
 # Build native part using ninja.
 ninja -j4
 
@@ -58,7 +59,7 @@ ninja -j4
 cd ../tools
 chmod +x compile.sh
 if [ ${TARGETARCH} == 'amd64' ] || [ ${TARGETARCH} == 'arm64' ]; then
-    JAVA_HOME="/usr/lib/jvm/java-17-openjdk*" ./compile.sh linux64
+    JAVA_HOME="/usr/lib/jvm/java-17-openjdk/" ./compile.sh linux64
 elif [ ${TARGETARCH} == '386' ]; then
     echo "386 is no longer supported since chromium 104"
     exit 1
@@ -74,9 +75,9 @@ set -e
 #Generate distribution
 chmod +x make_distrib.sh
 if [ ${TARGETARCH} == 'amd64' ] || [ ${TARGETARCH} == 'arm64' ]; then
-    JAVA_HOME="/usr/lib/jvm/java-17-openjdk*" ./make_distrib.sh linux64
+    JAVA_HOME="/usr/lib/jvm/java-17-openjdk/" ./make_distrib.sh linux64
 else
-    JAVA_HOME="/usr/lib/jvm/java-17-openjdk*" ./make_distrib.sh linux32
+    JAVA_HOME="/usr/lib/jvm/java-17-openjdk/" ./make_distrib.sh linux32
 fi
 
 #Pack binary_distrib
