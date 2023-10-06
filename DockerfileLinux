@@ -32,7 +32,7 @@ RUN ./run_linux.sh
 #Export built files
 FROM scratch AS export-stage
 COPY --from=stage /jcef/binary_distrib.tar.gz .
-COPY --from=stage /jcef/target target
-COPY --from=stage /jcef/third_party third_party
-COPY --from=stage /jcef/buildtools buildtools
-COPY --from=stage /jcef/jcef_build jcef_build
+#COPY --from=stage /jcef/target target
+#COPY --from=stage /jcef/third_party third_party
+#COPY --from=stage /jcef/buildtools buildtools
+#COPY --from=stage /jcef/jcef_build jcef_build
