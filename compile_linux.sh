@@ -70,9 +70,13 @@ if [ -f "out/buildtools/clang-format" ]; then
 fi
 
 #Move jcef_build
-rm -rf jcef/jcef_build
-mv out/jcef_build jcef/jcef_build
+if [ -f "out/jcef_build" ]; then
+    rm -rf jcef/jcef_build
+    mv out/jcef_build jcef/jcef_build
+fi
 
 #Move target to binary_distrib
-rm -rf jcef/binary_distrib
-mv out/target jcef/binary_distrib
+if [ -f "out/target" ]; then
+    rm -rf jcef/binary_distrib
+    mv out/target jcef/binary_distrib
+fi
