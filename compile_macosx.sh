@@ -53,9 +53,6 @@ if [ ! -d "jcef_build" ]; then
 fi
 cd jcef_build
 
-# Reinstall "six" python package to fix broken builds on amd64
-pip install --ignore-installed six
-
 # MacOS: Generate amd64/arm64 Makefiles.
 if [ ${TARGETARCH} == 'amd64' ]; then
     cmake -G "Ninja" -DPROJECT_ARCH="x86_64" -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ..
