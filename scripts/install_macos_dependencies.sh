@@ -1,4 +1,4 @@
 #!/bin/bash
 
 brew install ninja
-python -m pip install --ignore-installed six
+/Library/Frameworks/Python.framework/Versions/Current/bin/python -m pip install --ignore-installed six || True
