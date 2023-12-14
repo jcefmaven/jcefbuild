@@ -1,4 +1,4 @@
 #!/bin/bash
 
 brew install ninja
-brew reinstall six
+pip install six
