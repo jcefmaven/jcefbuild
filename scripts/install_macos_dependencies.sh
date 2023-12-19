@@ -1,7 +1,9 @@
 #!/bin/bash
 
-brew install ninja
-python3 -m pip install --ignore-installed six
+PYTHON=/Library/Frameworks/Python.framework/Versions/Current/bin/python
 
-/Library/Frameworks/Python.framework/Versions/Current/bin/python -m pip list
-echo "import six.moves" | /Library/Frameworks/Python.framework/Versions/Current/bin/python
+brew install ninja
+"$PYTHON" -m pip install --ignore-installed six
+
+"$PYTHON" -m pip list
+echo "from six.moves import configparser" | "$PYTHON" && echo "Success importing stuff from six moves python module"
