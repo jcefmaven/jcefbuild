@@ -1,6 +1,4 @@
 #!/bin/bash
 
 brew install ninja
-python -m venv .venv
-source .venv/bin/activate
-pip install --ignore-installed six
+python3 -m pip install --ignore-installed six
