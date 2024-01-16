@@ -49,9 +49,6 @@ rm -f notarization.log
 echo ""
 
 # staple
-mkdir -p "$1/Contents" || true
-touch "$1/Contents/CodeResources"
 xcrun stapler staple -v "$1"
-rm "$1/Contents/CodeResources"
 
 echo "##########################################################"
