@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PYTHON=/usr/local/Frameworks/Python.framework/Versions/3.12/bin/python3.12
+PYTHON=python3
 
 brew install ninja
 "$PYTHON" -m pip install --ignore-installed six
