@@ -28,8 +28,6 @@ chmod +x macosx_codesign_zip.sh
 
 #Sign helpers
 echo "Signing helpers..."
-cd "$APP_DIR/$APP_NAME/$FRAMEWORKS_DIR"
-ln -s _CodeSignature/CodeResources CodeResources
 cd "$( dirname "$0" )"
 codesign --force --options runtime --entitlements "$ENTITLEMENTS_HELPER" --sign "$2" --timestamp --verbose "$APP_DIR/$APP_NAME/$FRAMEWORKS_DIR/jcef Helper.app"
 bash macosx_notarize.sh "$APP_DIR/$APP_NAME/$FRAMEWORKS_DIR/jcef Helper.app" "$2" $3 org.jcef.jcef.helper $4 $5 $6
@@ -47,8 +45,8 @@ echo "Signing libraries and framework..."
 codesign --force --options runtime --entitlements "$ENTITLEMENTS_BROWSER" --sign "$2" --timestamp --verbose "$APP_DIR/$APP_NAME/$FRAMEWORKS_DIR/$FRAMEWORK_NAME/Libraries/libEGL.dylib"
 codesign --force --options runtime --entitlements "$ENTITLEMENTS_BROWSER" --sign "$2" --timestamp --verbose "$APP_DIR/$APP_NAME/$FRAMEWORKS_DIR/$FRAMEWORK_NAME/Libraries/libGLESv2.dylib"
 codesign --force --options runtime --entitlements "$ENTITLEMENTS_BROWSER" --sign "$2" --timestamp --verbose "$APP_DIR/$APP_NAME/$FRAMEWORKS_DIR/$FRAMEWORK_NAME/Libraries/libvk_swiftshader.dylib"
+codesign --force --options runtime --entitlements "$ENTITLEMENTS_BROWSER" --sign "$2" --timestamp --verbose "$APP_DIR/$APP_NAME/$FRAMEWORKS_DIR/$FRAMEWORK_NAME/Chromium Embedded Framework"
 codesign --force --options runtime --entitlements "$ENTITLEMENTS_BROWSER" --sign "$2" --timestamp --verbose "$APP_DIR/$APP_NAME/$FRAMEWORKS_DIR/$FRAMEWORK_NAME"
-bash macosx_notarize.sh "$APP_DIR/$APP_NAME/$FRAMEWORKS_DIR/$FRAMEWORK_NAME" "$2" $3 org.cef.framework $4 $5 $6
 codesign --force --options runtime --entitlements "$ENTITLEMENTS_BROWSER" --sign "$2" --timestamp --verbose "$APP_DIR/$APP_NAME/Contents/Java/libjcef.dylib"
 bash macosx_codesign_zip.sh "$APP_DIR/$APP_NAME/Contents/Java/gluegen-rt-natives-macosx-universal.jar" "natives/macosx-universal/libgluegen_rt.dylib" "$2"
 bash macosx_codesign_zip.sh "$APP_DIR/$APP_NAME/Contents/Java/jogl-all-natives-macosx-universal.jar" "natives/macosx-universal/libnativewindow_awt.dylib" "$2"
