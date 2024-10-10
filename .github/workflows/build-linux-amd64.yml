@@ -6,7 +6,7 @@ on:
       repo:
         description: 'Git repository to clone'
         required: true
-        default: 'https://bitbucket.org/chromiumembedded/java-cef.git'
+        default: 'https://bitbucket.org/adriaanse/java-cef.git'
       ref:
         description: 'Git commit id to checkout'
         required: true
