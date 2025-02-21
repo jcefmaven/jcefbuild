@@ -191,7 +191,7 @@ jobs:
 
 
   build-macosx-amd64:
-    runs-on: macos-12
+    runs-on: macos-latest
     needs: create-release
     permissions:
       contents: write
@@ -261,7 +261,7 @@ jobs:
 
 
   build-macosx-arm64:
-    runs-on: macos-12
+    runs-on: macos-latest
     needs: create-release
     permissions:
       contents: write
