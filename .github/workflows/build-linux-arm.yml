@@ -31,7 +31,7 @@ jobs:
           ./compile_linux.sh arm/v6 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
       -
         name: Export artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: linux-arm.tar.gz
           path: out/binary_distrib.tar.gz
