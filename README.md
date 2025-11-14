@@ -1,6 +1,6 @@
 <div id="title" align="center">
 <h1>JCEF BUILD</h1>
-<a href="../../releases/latest"><img alt="build-all" src="../../actions/workflows/build-all.yml/badge.svg"></img></a>
+<a href="../../releases/latest"><img alt="build" src="../../actions/workflows/build.yml/badge.svg"></img></a>
 
 <h4>Independent project to produce binary artifacts for the JCef project</h4>
 <h6>Visit the JCEF repo at <a href="https://github.com/trethore/java-chromium-embedded-framework">
@@ -64,9 +64,10 @@ You have multiple options to build your own project using this repository. They 
 ### Building another git repo using GitHub Actions
 
 To build another git repo, simply fork this repository. Then go to the "Actions" tab of your forked repository,
-activate the workflows and manually run the `build-all` (or `build-<platform>`) workflow with your repository and commit
-id/branch specified.
-This will trigger a build of your desired repository and platforms.
+activate the workflows and manually run the `build` workflow with your repository and commit id/branch specified. Use
+the optional `targets` input to limit the matrix (e.g. `linux-amd64,windows-amd64`) or leave it as `all` to build every
+supported platform, and enable `publish_release` if you want the workflow to publish the resulting artifacts to a
+GitHub release.
 To produce a build for MacOS, you will need to specify your code signing information or remove the signing and
 notarization steps from the action workflows.
 
