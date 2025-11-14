@@ -3,9 +3,11 @@
 <a href="../../releases/latest"><img alt="build-all" src="../../actions/workflows/build-all.yml/badge.svg"></img></a>
 
 <h4>Independent project to produce binary artifacts for the JCef project</h4>
-<h6>Visit the JCEF repo at <a href="https://github.com/trethore/java-chromium-embedded-framework">github.com/trethore/java-chromium-embedded-framework</a></h6>
+<h6>Visit the JCEF repo at <a href="https://github.com/trethore/java-chromium-embedded-framework">
+github.com/trethore/java-chromium-embedded-framework</a></h6>
 
-<h6>Consider using these builds with Maven or Gradle: <a href="https://github.com/jcefmaven/jcefmaven">jcefmaven</a></h6>
+<h6>Consider using these builds with Maven or Gradle: <a href="https://github.com/jcefmaven/jcefmaven">
+jcefmaven</a></h6>
 
 ### Build Specs:
 
@@ -43,7 +45,7 @@
     <td>-</td>
     <td>-</td>
     <td>No OSR mode (no Jogamp)</td>
-    <td>Needs <a href="https://bitbucket.org/chromiumembedded/java-cef/issues/109/">custom structure</a> to run outside of a bundle</td>
+    <td>Needs <a href="https://github.com/trethore/java-chromium-embedded-framework/wiki/Custom-Structure">custom structure</a> to run outside of a bundle</td>
   </tr>
 </table>
 
@@ -86,7 +88,8 @@ Application).
 
 ## Thanks
 
-- Original build scripts and infrastructure by Friwi and the [chromiumembedded/java-cef](https://github.com/chromiumembedded/java-cef) community.
+- Original build scripts and infrastructure by Friwi and
+  the [chromiumembedded/java-cef](https://github.com/chromiumembedded/java-cef) community.
 - Docker environment inspiration from the [jcefdocker](https://github.com/friwi/jcefdocker) project.
 
 ### Building locally
@@ -94,7 +97,7 @@ Application).
 To build locally, put your sources in the `jcef` directory of this repository, or leave it empty to clone a repository.
 On Windows and Linux, make sure you installed docker (NOT the Snap version!). On MacOS, make sure you installed the
 build dependencies specified
-[here](https://bitbucket.org/chromiumembedded/java-cef/wiki/BranchesAndBuilding) and `ninja`.
+[here](https://github.com/trethore/java-chromium-embedded-framework/wiki/BranchesAndBuilding) and `ninja`.
 
 Then execute `compile-<os>.<sh|bat> <arch> <buildType> [<gitrepo> <gitref>]`.
 Specify an architecture (docker architectures, see script source for options) and build type (Release or Debug).
@@ -103,7 +106,9 @@ Optionally, you can specify a git repository and ref/branch to pull when no sour
 ## Reporting bugs
 
 Please only report bugs here that are related to the build process.
-Please report bugs in JCEF/CEF to the [corresponding repository on Bitbucket](https://bitbucket.org/chromiumembedded/).
+Please report bugs in JCEF/CEF to
+the [repositories on GitHub](https://github.com/trethore/java-chromium-embedded-framework/issues) or the
+upstream [chromiumembedded](https://github.com/chromiumembedded) project as appropriate.
 
 ## Contributing
 
