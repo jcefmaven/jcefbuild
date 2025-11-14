@@ -6,7 +6,7 @@ on:
       repo:
         description: 'Git repository to clone'
         required: true
-        default: 'https://bitbucket.org/chromiumembedded/java-cef.git'
+        default: 'https://github.com/trethore/java-chromium-embedded-framework.git'
       ref:
         description: 'Git commit id to checkout'
         required: true
@@ -17,8 +17,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      -
-        name: Setup environment
+      - name: Setup environment
         run: |
           chmod +x scripts/install_macos_dependencies.sh
           ./scripts/install_macos_dependencies.sh
@@ -57,8 +56,7 @@ jobs:
           # import api key from secrets
           mkdir "${HOME}/private_keys"
           echo -n "$APPLE_API_KEY_BASE64" | base64 --decode --output "${HOME}/private_keys/AuthKey_$APPLE_API_KEY_NAME.p8"
-      -
-        name: Build
+      - name: Build
         run: |
           chmod +x compile_macosx.sh
           ./compile_macosx.sh arm64 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }} "${{ secrets.APPLE_BUILD_CERTIFICATE_NAME }}" ${{ secrets.APPLE_TEAM_NAME }} ${{ secrets.APPLE_API_KEY_ID }} "${HOME}/private_keys/AuthKey_${{ secrets.APPLE_API_KEY_NAME }}.p8" ${{ secrets.APPLE_API_KEY_ISSUER }}
@@ -67,8 +65,7 @@ jobs:
         run: |
           security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
           rm -rf "${HOME}/private_keys"
-      -
-        name: Export artifacts
+      - name: Export artifacts
         uses: actions/upload-artifact@v4
         with:
           name: macosx-arm64.tar.gz

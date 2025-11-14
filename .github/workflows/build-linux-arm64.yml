@@ -6,7 +6,7 @@ on:
       repo:
         description: 'Git repository to clone'
         required: true
-        default: 'https://bitbucket.org/chromiumembedded/java-cef.git'
+        default: 'https://github.com/trethore/java-chromium-embedded-framework.git'
       ref:
         description: 'Git commit id to checkout'
         required: true
@@ -21,16 +21,13 @@ jobs:
         uses: docker/setup-qemu-action@master
         with:
           platforms: all
-      -
-        name: Set up Docker Buildx
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      -
-        name: Build
+      - name: Build
         run: |
           chmod +x compile_linux.sh
           ./compile_linux.sh arm64 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
-      -
-        name: Export artifacts
+      - name: Export artifacts
         uses: actions/upload-artifact@v4
         with:
           name: linux-arm64.tar.gz

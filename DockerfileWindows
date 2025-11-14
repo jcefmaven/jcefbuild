@@ -1,4 +1,4 @@
-FROM friwidev/jcefdocker:windows-latest
+FROM tytoo/jcefdocker:windows-latest
 
 WORKDIR C:/
 

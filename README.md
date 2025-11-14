@@ -3,7 +3,7 @@
 <a href="../../releases/latest"><img alt="build-all" src="../../actions/workflows/build-all.yml/badge.svg"></img></a>
 
 <h4>Independent project to produce binary artifacts for the JCef project</h4>
-<h6>Visit the JCEF repo at <a href="https://bitbucket.org/chromiumembedded/java-cef/src/master/">bitbucket</a> or <a href="https://github.com/chromiumembedded/java-cef">github</a> </h6>
+<h6>Visit the JCEF repo at <a href="https://github.com/trethore/java-chromium-embedded-framework">github.com/trethore/java-chromium-embedded-framework</a></h6>
 
 <h6>Consider using these builds with Maven or Gradle: <a href="https://github.com/jcefmaven/jcefmaven">jcefmaven</a></h6>
 
@@ -52,16 +52,21 @@
 ---
 
 ## Downloading artifacts
+
 You can find the most recent versions of the artifacts on the [releases](../../releases) page of this repository.
 
 ## Building your own projects
+
 You have multiple options to build your own project using this repository. They are listed below.
 
 ### Building another git repo using GitHub Actions
+
 To build another git repo, simply fork this repository. Then go to the "Actions" tab of your forked repository,
-activate the workflows and manually run the `build-all` (or `build-<platform>`) workflow with your repository and commit id/branch specified.
+activate the workflows and manually run the `build-all` (or `build-<platform>`) workflow with your repository and commit
+id/branch specified.
 This will trigger a build of your desired repository and platforms.
-To produce a build for MacOS, you will need to specify your code signing information or remove the signing and notarization steps from the action workflows.
+To produce a build for MacOS, you will need to specify your code signing information or remove the signing and
+notarization steps from the action workflows.
 
 Required Actions Secrets for signing and notarization:
 
@@ -75,12 +80,20 @@ Required Actions Secrets for signing and notarization:
 +`APPLE_KEYCHAIN_PASSWORD`: A random password to use for the keychain on the runner
 +`APPLE_TEAM_NAME`: Your apple team name, part of the certificate name (10 digit id in brackets)`
 
-You can obtain the api key [here](https://appstoreconnect.apple.com/access/api) (make sure key has developer access) and the certificate [here](https://developer.apple.com/account/resources/certificates/list) (choose Developer ID Application).
+You can obtain the api key [here](https://appstoreconnect.apple.com/access/api) (make sure key has developer access) and
+the certificate [here](https://developer.apple.com/account/resources/certificates/list) (choose Developer ID
+Application).
 
+## Thanks
+
+- Original build scripts and infrastructure by Friwi and the [chromiumembedded/java-cef](https://github.com/chromiumembedded/java-cef) community.
+- Docker environment inspiration from the [jcefdocker](https://github.com/friwi/jcefdocker) project.
 
 ### Building locally
+
 To build locally, put your sources in the `jcef` directory of this repository, or leave it empty to clone a repository.
-On Windows and Linux, make sure you installed docker (NOT the Snap version!). On MacOS, make sure you installed the build dependencies specified
+On Windows and Linux, make sure you installed docker (NOT the Snap version!). On MacOS, make sure you installed the
+build dependencies specified
 [here](https://bitbucket.org/chromiumembedded/java-cef/wiki/BranchesAndBuilding) and `ninja`.
 
 Then execute `compile-<os>.<sh|bat> <arch> <buildType> [<gitrepo> <gitref>]`.
@@ -88,9 +101,12 @@ Specify an architecture (docker architectures, see script source for options) an
 Optionally, you can specify a git repository and ref/branch to pull when no sources are present in the `jcef` folder.
 
 ## Reporting bugs
+
 Please only report bugs here that are related to the build process.
 Please report bugs in JCEF/CEF to the [corresponding repository on Bitbucket](https://bitbucket.org/chromiumembedded/).
 
 ## Contributing
-Feel free to open a pull request on this repository to improve its stability or artifact quality. Make sure to provide a valid GitHub Actions run for your pull requests to be accepted.
+
+Feel free to open a pull request on this repository to improve its stability or artifact quality. Make sure to provide a
+valid GitHub Actions run for your pull requests to be accepted.
 

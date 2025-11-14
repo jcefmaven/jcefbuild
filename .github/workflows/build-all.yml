@@ -6,7 +6,7 @@ on:
       repo:
         description: 'Git repository to clone'
         required: true
-        default: 'https://bitbucket.org/chromiumembedded/java-cef.git'
+        default: 'https://github.com/trethore/java-chromium-embedded-framework.git'
       ref:
         description: 'Git commit id to checkout'
         required: true
@@ -60,11 +60,9 @@ jobs:
         uses: docker/setup-qemu-action@master
         with:
           platforms: all
-      -
-        name: Set up Docker Buildx
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      -
-        name: Build
+      - name: Build
         run: |
           chmod +x compile_linux.sh
           ./compile_linux.sh amd64 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
@@ -87,11 +85,9 @@ jobs:
         uses: docker/setup-qemu-action@master
         with:
           platforms: all
-      -
-        name: Set up Docker Buildx
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      -
-        name: Build
+      - name: Build
         run: |
           chmod +x compile_linux.sh
           ./compile_linux.sh arm64 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
@@ -101,8 +97,8 @@ jobs:
           gh release upload ${{needs.create-release.outputs.release_tag_name}} out/linux-arm64.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-          
+
+
   build-linux-arm:
     runs-on: ubuntu-latest
     needs: create-release
@@ -114,11 +110,9 @@ jobs:
         uses: docker/setup-qemu-action@master
         with:
           platforms: all
-      -
-        name: Set up Docker Buildx
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      -
-        name: Build
+      - name: Build
         run: |
           chmod +x compile_linux.sh
           ./compile_linux.sh arm/v6 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
@@ -137,8 +131,7 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
-      -
-        name: Build
+      - name: Build
         shell: cmd
         run: |
           compile_windows.bat amd64 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
@@ -157,8 +150,7 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
-      -
-        name: Build
+      - name: Build
         shell: cmd
         run: |
           compile_windows.bat 386 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
@@ -168,7 +160,7 @@ jobs:
           gh release upload ${{needs.create-release.outputs.release_tag_name}} out/windows-i386.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+
   
   build-windows-arm64:
     runs-on: windows-2022
@@ -177,8 +169,7 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
-      -
-        name: Build
+      - name: Build
         shell: cmd
         run: |
           compile_windows.bat arm64 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
@@ -197,8 +188,7 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
-      -
-        name: Setup environment
+      - name: Setup environment
         run: |
           chmod +x scripts/install_macos_dependencies.sh
           ./scripts/install_macos_dependencies.sh
@@ -237,8 +227,7 @@ jobs:
           # import api key from secrets
           mkdir "${HOME}/private_keys"
           echo -n "$APPLE_API_KEY_BASE64" | base64 --decode --output "${HOME}/private_keys/AuthKey_$APPLE_API_KEY_NAME.p8"
-      -
-        name: Build
+      - name: Build
         run: |
           chmod +x compile_macosx.sh
           ./compile_macosx.sh amd64 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }} "${{ secrets.APPLE_BUILD_CERTIFICATE_NAME }}" ${{ secrets.APPLE_TEAM_NAME }} ${{ secrets.APPLE_API_KEY_ID }} "${HOME}/private_keys/AuthKey_${{ secrets.APPLE_API_KEY_NAME }}.p8" ${{ secrets.APPLE_API_KEY_ISSUER }}
@@ -267,8 +256,7 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
-      -
-        name: Setup environment
+      - name: Setup environment
         run: |
           chmod +x scripts/install_macos_dependencies.sh
           ./scripts/install_macos_dependencies.sh
@@ -307,8 +295,7 @@ jobs:
           # import api key from secrets
           mkdir "${HOME}/private_keys"
           echo -n "$APPLE_API_KEY_BASE64" | base64 --decode --output "${HOME}/private_keys/AuthKey_$APPLE_API_KEY_NAME.p8"
-      -
-        name: Build
+      - name: Build
         run: |
           chmod +x compile_macosx.sh
           ./compile_macosx.sh arm64 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }} "${{ secrets.APPLE_BUILD_CERTIFICATE_NAME }}" ${{ secrets.APPLE_TEAM_NAME }} ${{ secrets.APPLE_API_KEY_ID }} "${HOME}/private_keys/AuthKey_${{ secrets.APPLE_API_KEY_NAME }}.p8" ${{ secrets.APPLE_API_KEY_ISSUER }}

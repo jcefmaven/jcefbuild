@@ -4,4 +4,5 @@ release_gen/*.txt
 release_gen/*.md
 release_gen/*.json
 release_gen/LICENSE
+.idea/
 

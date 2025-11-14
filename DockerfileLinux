@@ -1,4 +1,4 @@
-FROM friwidev/jcefdocker:linux-latest AS stage
+FROM tytoo/jcefdocker:linux-latest AS stage
 
 LABEL jcefbuild=true
 

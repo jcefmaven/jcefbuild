@@ -13,7 +13,7 @@ if ("%2"=="") ( ^
 cd /D "%~dp0"
 
 ::Determine repository and ref to pull from
-if ("%3"=="") (set "REPO=https://bitbucket.org/chromiumembedded/java-cef.git") ^
+if ("%3"=="") (set "REPO=https://github.com/trethore/java-chromium-embedded-framework.git") ^
 else (set "REPO=%3")
 if ("%4"=="") (set "REF=master") ^
 else (set "REF=%4")

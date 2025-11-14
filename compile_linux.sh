@@ -23,7 +23,7 @@ touch out/linux32/prebuilt.txt
 rm -rf jcef/binary_distrib
 
 #Cache build image to not download it again each time (speedup for local builds)
-docker pull friwidev/jcefdocker:linux-latest
+docker pull tytoo/jcefdocker:linux-latest
 
 #Execute buildx with linux dockerfile and output to current directory
 if [ $# -eq 2 ]
@@ -31,9 +31,9 @@ if [ $# -eq 2 ]
     if [ $1 == "arm/v6" ]
       then
         rm -rf out/linux32
-        docker buildx build --no-cache --progress=plain --platform=linux/386 --build-arg TARGETARCH=386 --build-arg BUILD_TYPE=$2 --build-arg REPO=https://bitbucket.org/chromiumembedded/java-cef.git --build-arg REF=master --file DockerfileLinuxARMPrebuild --output out .
+        docker buildx build --no-cache --progress=plain --platform=linux/386 --build-arg TARGETARCH=386 --build-arg BUILD_TYPE=$2 --build-arg REPO=https://github.com/trethore/java-chromium-embedded-framework.git --build-arg REF=master --file DockerfileLinuxARMPrebuild --output out .
     fi
-    docker buildx build --no-cache --progress=plain --platform=linux/$1 --build-arg TARGETARCH=$1 --build-arg BUILD_TYPE=$2 --build-arg REPO=https://bitbucket.org/chromiumembedded/java-cef.git --build-arg REF=master --file DockerfileLinux --output out .
+    docker buildx build --no-cache --progress=plain --platform=linux/$1 --build-arg TARGETARCH=$1 --build-arg BUILD_TYPE=$2 --build-arg REPO=https://github.com/trethore/java-chromium-embedded-framework.git --build-arg REF=master --file DockerfileLinux --output out .
 else
     if [ $1 == "arm/v6" ]
       then

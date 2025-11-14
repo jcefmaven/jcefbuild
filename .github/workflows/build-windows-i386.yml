@@ -6,7 +6,7 @@ on:
       repo:
         description: 'Git repository to clone'
         required: true
-        default: 'https://bitbucket.org/chromiumembedded/java-cef.git'
+        default: 'https://github.com/trethore/java-chromium-embedded-framework.git'
       ref:
         description: 'Git commit id to checkout'
         required: true
@@ -17,13 +17,11 @@ jobs:
     runs-on: windows-2022
     steps:
       - uses: actions/checkout@v3
-      -
-        name: Build
+      - name: Build
         shell: cmd
         run: |
           compile_windows.bat 386 Release ${{ github.event.inputs.repo }} ${{ github.event.inputs.ref }}
-      -
-        name: Export artifacts
+      - name: Export artifacts
         uses: actions/upload-artifact@v4
         with:
           name: windows-i386.tar.gz
