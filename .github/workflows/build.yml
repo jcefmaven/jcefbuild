@@ -1,0 +1,260 @@
+name: build
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo:
+        description: 'Git repository to clone'
+        required: true
+        default: 'https://github.com/trethore/java-chromium-embedded-framework.git'
+      ref:
+        description: 'Git commit id to checkout'
+        required: true
+        default: 'master'
+      targets:
+        description: 'Comma-separated list of targets to build (e.g. linux-amd64,windows-amd64) or "all"'
+        required: false
+        default: 'all'
+      publish_release:
+        description: 'Create a GitHub release and upload the build artifacts'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  determine-targets:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.targets.outputs.matrix }}
+      selected: ${{ steps.targets.outputs.selected }}
+    steps:
+      - id: targets
+        run: |
+          python <<'PY'
+          import json
+          import os
+          import sys
+
+          targets = [
+              {"id": "linux-amd64", "os": "ubuntu-latest", "family": "linux", "build_target": "amd64", "artifact": "linux-amd64.tar.gz", "qemu": False, "publish_javadoc": False},
+              {"id": "linux-arm64", "os": "ubuntu-latest", "family": "linux", "build_target": "arm64", "artifact": "linux-arm64.tar.gz", "qemu": True, "publish_javadoc": False},
+              {"id": "linux-arm", "os": "ubuntu-latest", "family": "linux", "build_target": "arm/v6", "artifact": "linux-arm.tar.gz", "qemu": True, "publish_javadoc": False},
+              {"id": "windows-amd64", "os": "windows-2022", "family": "windows", "build_target": "amd64", "artifact": "windows-amd64.tar.gz", "qemu": False, "publish_javadoc": False},
+              {"id": "windows-arm64", "os": "windows-2022", "family": "windows", "build_target": "arm64", "artifact": "windows-arm64.tar.gz", "qemu": False, "publish_javadoc": False},
+              {"id": "windows-i386", "os": "windows-2022", "family": "windows", "build_target": "386", "artifact": "windows-i386.tar.gz", "qemu": False, "publish_javadoc": False},
+              {"id": "macosx-amd64", "os": "macos-latest", "family": "macos", "build_target": "amd64", "artifact": "macosx-amd64.tar.gz", "qemu": False, "publish_javadoc": True},
+              {"id": "macosx-arm64", "os": "macos-latest", "family": "macos", "build_target": "arm64", "artifact": "macosx-arm64.tar.gz", "qemu": False, "publish_javadoc": False},
+          ]
+
+          target_input = os.environ.get("TARGETS_INPUT", "").strip()
+          selected_targets = []
+
+          if not target_input or target_input.lower() == "all":
+              selected_targets = targets
+          else:
+              requested = [value.strip() for value in target_input.split(",") if value.strip()]
+              if not requested:
+                  print("No valid targets were provided", file=sys.stderr)
+                  sys.exit(1)
+              target_map = {entry["id"]: entry for entry in targets}
+              invalid = sorted({value for value in requested if value not in target_map})
+              if invalid:
+                  print(f"Unknown targets: {', '.join(invalid)}", file=sys.stderr)
+                  sys.exit(1)
+              seen = set()
+              for value in requested:
+                  if value not in seen:
+                      selected_targets.append(target_map[value])
+                      seen.add(value)
+
+          if not selected_targets:
+              print("No targets were selected", file=sys.stderr)
+              sys.exit(1)
+
+          matrix_payload = json.dumps({"include": selected_targets})
+          selected_ids = ",".join(entry["id"] for entry in selected_targets)
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
+              fh.write(f"matrix={matrix_payload}\n")
+              fh.write(f"selected={selected_ids}\n")
+          PY
+        env:
+          TARGETS_INPUT: ${{ inputs.targets }}
+
+  create-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      should_release: ${{ steps.publish.outputs.should_release }}
+      release_tag_name: ${{ steps.release_info.outputs.release_tag_name }}
+      build_meta: ${{ steps.release_info.outputs.build_meta }}
+    steps:
+      - id: publish
+        run: |
+          if [[ "${PUBLISH_RELEASE}" == "true" ]]; then
+            echo "should_release=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "should_release=false" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          PUBLISH_RELEASE: ${{ inputs.publish_release }}
+      - name: Checkout
+        if: steps.publish.outputs.should_release == 'true'
+        uses: actions/checkout@v4
+      - name: Generate release info
+        if: steps.publish.outputs.should_release == 'true'
+        run: |
+          cd release_gen
+          chmod +x create_release_info.sh
+          ./create_release_info.sh ${{ inputs.repo }} ${{ inputs.ref }} https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }} ${{ github.run_number }} ${{ github.repository }}
+      - name: Create release
+        if: steps.publish.outputs.should_release == 'true'
+        run: |
+          gh release create ${{ env.release_tag_name }} --title "${{ env.release_name }}" --notes-file release_gen/release_message.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Add LICENSE
+        if: steps.publish.outputs.should_release == 'true'
+        run: |
+          gh release upload ${{ env.release_tag_name }} release_gen/LICENSE
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Add build_meta.json
+        if: steps.publish.outputs.should_release == 'true'
+        run: |
+          gh release upload ${{ env.release_tag_name }} release_gen/build_meta.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Announce build meta
+        if: steps.publish.outputs.should_release == 'true'
+        run: |
+          cd release_gen
+          chmod +x announce_build_meta.sh
+          ./announce_build_meta.sh ${{ github.repository }}
+      - name: Capture release metadata
+        id: release_info
+        run: |
+          echo "release_tag_name=${RELEASE_TAG_NAME}" >> "$GITHUB_OUTPUT"
+          echo "build_meta=${BUILD_META}" >> "$GITHUB_OUTPUT"
+        env:
+          RELEASE_TAG_NAME: ${{ env.release_tag_name }}
+          BUILD_META: ${{ env.build_meta }}
+
+  build:
+    name: Build (${{ matrix.id }})
+    needs:
+      - determine-targets
+      - create-release
+    permissions:
+      contents: write
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.determine-targets.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        if: ${{ matrix.qemu == true }}
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: all
+
+      - name: Set up Docker Buildx
+        if: ${{ matrix.family == 'linux' }}
+        uses: docker/setup-buildx-action@v3
+
+      - name: Setup macOS environment
+        if: ${{ matrix.family == 'macos' }}
+        run: |
+          chmod +x scripts/install_macos_dependencies.sh
+          ./scripts/install_macos_dependencies.sh
+
+      - name: Set up Java
+        if: ${{ matrix.family == 'macos' }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8'
+          distribution: 'corretto'
+
+      - name: Set up Python
+        if: ${{ matrix.family == 'macos' }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10.11'
+
+      - name: Install Apple certificate
+        if: ${{ matrix.family == 'macos' }}
+        env:
+          BUILD_CERTIFICATE_BASE64: ${{ secrets.APPLE_BUILD_CERTIFICATE_BASE64 }}
+          P12_PASSWORD: ${{ secrets.APPLE_P12_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.APPLE_KEYCHAIN_PASSWORD }}
+          APPLE_API_KEY_BASE64: ${{ secrets.APPLE_API_KEY_BASE64 }}
+          APPLE_API_KEY_NAME: ${{ secrets.APPLE_API_KEY_NAME }}
+        run: |
+          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+          echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode --output $CERTIFICATE_PATH
+
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH -T /usr/bin/codesign
+          security list-keychain -d user -s $KEYCHAIN_PATH
+
+          mkdir -p "${HOME}/private_keys"
+          echo -n "$APPLE_API_KEY_BASE64" | base64 --decode --output "${HOME}/private_keys/AuthKey_$APPLE_API_KEY_NAME.p8"
+
+      - name: Build (Linux)
+        if: ${{ matrix.family == 'linux' }}
+        run: |
+          chmod +x compile_linux.sh
+          ./compile_linux.sh ${{ matrix.build_target }} Release ${{ inputs.repo }} ${{ inputs.ref }}
+
+      - name: Build (Windows)
+        if: ${{ matrix.family == 'windows' }}
+        shell: cmd
+        run: |
+          compile_windows.bat ${{ matrix.build_target }} Release ${{ inputs.repo }} ${{ inputs.ref }}
+
+      - name: Build (macOS)
+        if: ${{ matrix.family == 'macos' }}
+        run: |
+          chmod +x compile_macosx.sh
+          ./compile_macosx.sh ${{ matrix.build_target }} Release ${{ inputs.repo }} ${{ inputs.ref }} "${{ secrets.APPLE_BUILD_CERTIFICATE_NAME }}" ${{ secrets.APPLE_TEAM_NAME }} ${{ secrets.APPLE_API_KEY_ID }} "${HOME}/private_keys/AuthKey_${{ secrets.APPLE_API_KEY_NAME }}.p8" ${{ secrets.APPLE_API_KEY_ISSUER }}
+
+      - name: Clean up keychain
+        if: ${{ always() && matrix.family == 'macos' }}
+        run: |
+          security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
+          rm -rf "${HOME}/private_keys"
+
+      - name: Upload distribution
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: out/binary_distrib.tar.gz
+
+      - name: Publish distribution to release (Linux/macOS)
+        if: ${{ needs.create-release.outputs.should_release == 'true' && matrix.family != 'windows' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload ${{ needs.create-release.outputs.release_tag_name }} "out/binary_distrib.tar.gz#${{ matrix.artifact }}"
+
+      - name: Publish distribution to release (Windows)
+        if: ${{ needs.create-release.outputs.should_release == 'true' && matrix.family == 'windows' }}
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload ${{ needs.create-release.outputs.release_tag_name }} "out/binary_distrib.tar.gz#${{ matrix.artifact }}"
+
+      - name: Publish javadoc
+        if: ${{ needs.create-release.outputs.should_release == 'true' && matrix.publish_javadoc == true }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload ${{ needs.create-release.outputs.release_tag_name }} out/javadoc.tar.gz
